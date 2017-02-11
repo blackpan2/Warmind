@@ -659,7 +659,6 @@ module.exports.run = function (worker) {
 
     stateIds.forEach(function (id) {
       var state = game.stateRefs[id];
-      // Don't include bots.
       stateList.push(state);
     });
 
@@ -717,6 +716,7 @@ module.exports.run = function (worker) {
         y: startingPos.y,
         diam: PLAYER_DIAMETER,
         mass: PLAYER_MASS,
+        health: 100,
         scrap: 0,
         wire: 0,
         chips: 0,
