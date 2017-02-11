@@ -48,7 +48,6 @@ var _ = require('lodash');
 var rbush = require('rbush');
 var SAT = require('sat');
 var config = require('./config');
-var BotManager = require('./bot-manager').BotManager;
 var CoinManager = require('./coin-manager').CoinManager;
 
 // This controller will be instantiated once for each
@@ -79,22 +78,8 @@ var CellController = function (options, util) {
 
   var cellData = options.cellData;
 
-  this.botManager = new BotManager({
-    worldWidth: config.WORLD_WIDTH,
-    worldHeight: config.WORLD_HEIGHT,
-    botDefaultDiameter: config.BOT_DEFAULT_DIAMETER,
-    botMoveSpeed: config.BOT_MOVE_SPEED,
-    botMass: config.BOT_MASS,
-    botChangeDirectionProbability: config.BOT_CHANGE_DIRECTION_PROBABILITY
-  });
-
   if (!cellData.player) {
     cellData.player = {};
-  }
-
-  for (var b = 0; b < this.botCount; b++) {
-    var bot = this.botManager.addBot();
-    cellData.player[bot.id] = bot;
   }
 
   this.botMoves = [
