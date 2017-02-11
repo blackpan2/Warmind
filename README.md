@@ -8,8 +8,7 @@ It lets you build multi-player games like Agar.io and Slither.io and also multi-
 It is designed to scale across multiple processes to make use of all CPU cores on a machine.
 
 The game world is divided into cells which will be distributed across available SC worker processes.
-Basic initial tests indicate that this engine can scale linearly across available CPU cores - I've found that doubling
-the number of worker processes allowed the engine to handle approximately double the number of bots whilst maintaining the average CPU usage
+Basic initial tests indicate that this engine can scale linearly across available CPU cores 
 per worker process at 50%.
 
 Each cell in the world has its own instance of a cell controller (`cell.js`) - Ideally, this is where you should put all your back end game logic.
@@ -19,8 +18,6 @@ With this approach, you should be able to build very large worlds which can host
 If you've built a game using this engine, feel free to contribute back to this repo.
 Also, feel free to get in touch with me directly by email (see my GitHub profile http://github.com/jondubois) if you'd like to chat, have feedback,
 need advice or need help with a project.
-
-<img alt="IOGrid demo" src="public/img/iogrid.gif" title="IOGrid demo" />
 
 Special thanks to the Percepts and Concepts Laboratory at Indiana University (http://cognitrn.psych.indiana.edu/) for sponsoring this project.
 

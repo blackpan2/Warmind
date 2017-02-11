@@ -60,17 +60,10 @@
         };
 
         var othersTextures = {
-          up: 'img/others-back.gif',
-          left: 'img/others-side-left.gif',
-          right: 'img/others-side-right.gif',
-          down: 'img/others-front.gif'
-        };
-
-        var botTextures = {
-          up: 'img/bot-back.gif',
-          left: 'img/bot-side-left.gif',
-          right: 'img/bot-side-right.gif',
-          down: 'img/bot-front.gif'
+          up: 'img/simplebot_back.gif',
+          left: 'img/simplebot_left.gif',
+          right: 'img/simplebot_right.gif',
+          down: 'img/simplebot_front.gif'
         };
 
         // Mapping of different resources that can spawn
@@ -132,11 +125,6 @@
           game.load.image('others-down', othersTextures.down);
           game.load.image('others-right', othersTextures.right);
           game.load.image('others-left', othersTextures.left);
-
-          game.load.image('bot-up', botTextures.up);
-          game.load.image('bot-down', botTextures.down);
-          game.load.image('bot-right', botTextures.right);
-          game.load.image('bot-left', botTextures.left);
 
           game.load.image('resource-1', resourceTextures[1]);
           game.load.image('resource-2', resourceTextures[2]);
@@ -236,11 +224,6 @@
               texture: 'you-down'
             });
             user.texturePrefix = 'you';
-          } else if (userData.subtype == 'bot') {
-            sprite = createTexturedSprite({
-              texture: 'bot-down'
-            });
-            user.texturePrefix = 'bot';
           } else {
             sprite = createTexturedSprite({
               texture: 'others-down'
@@ -248,6 +231,7 @@
             user.texturePrefix = 'others';
           }
 
+          user.health = userData.health;
           user.scrap = userData.scrap;
           user.wire = userData.wire;
           user.chips = userData.chips;
@@ -292,6 +276,7 @@
         function updateUser(userData) {
           var user = users[userData.id];
           if (user) {
+            user.health = userData.health;
             user.scrap = userData.scrap;
             user.wire = userData.wire;
             user.chips = userData.chips;
@@ -392,11 +377,12 @@
 
           if (ENVIRONMENT == 'dev') {
             if (player) {
-              game.debug.text('Scrap: ' + player.scrap, 2, 14, "#00FF00");
-              game.debug.text('Wire: ' + player.wire, 2, 30, "#00FF00");
-              game.debug.text('Chips: ' + player.chips, 2, 46, "#00FF00");
+              game.debug.text('Health: ' + player.health, 2, 14, "#00FF00");
+              game.debug.text('Scrap: ' + player.scrap, 2, 30, "#00FF00");
+              game.debug.text('Wire: ' + player.wire, 2, 46, "#00FF00");
+              game.debug.text('Chips: ' + player.chips, 2, 62, "#00FF00");
               if (player.quantum_chip > 0) {
-                game.debug.text('Quantum Upgrade Available!', 2, 62, "#00FF00");
+                game.debug.text('Quantum Upgrade Available!', 2, 78, "#00FF00");
               }
             }
           }

@@ -42,14 +42,6 @@ module.exports = {
   PLAYER_DIAMETER: 45,
   PLAYER_MASS: 20,
 
-  // Note that the number of bots needs to be either 0 or a multiple of the number of
-  // worker processes or else it will get rounded up/down.
-  BOT_COUNT: 10,
-  BOT_MOVE_SPEED: 5,
-  BOT_MASS: 10,
-  BOT_DEFAULT_DIAMETER: 45,
-  BOT_CHANGE_DIRECTION_PROBABILITY: 0.01,
-
   COIN_UPDATE_INTERVAL: 1000,
   COIN_DROP_INTERVAL: 400,
   COIN_MAX_COUNT: 200,
@@ -72,7 +64,7 @@ module.exports = {
       type: 3,
       value: 'chip',
       radius: 10,
-      probability: 0.9
+      probability: 0.09
     },
     {
       type: 4,

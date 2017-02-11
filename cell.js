@@ -74,20 +74,12 @@ var CellController = function (options, util) {
 
   this.coinMaxCount = Math.round(config.COIN_MAX_COUNT / this.worldCellCount);
   this.coinDropInterval = config.COIN_DROP_INTERVAL * this.worldCellCount;
-  this.botCount = Math.round(config.BOT_COUNT / this.worldCellCount);
 
   var cellData = options.cellData;
 
   if (!cellData.player) {
     cellData.player = {};
   }
-
-  this.botMoves = [
-    {u: 1},
-    {d: 1},
-    {r: 1},
-    {l: 1}
-  ];
 
   this.coinManager = new CoinManager({
     cellData: options.cellData,
@@ -149,7 +141,6 @@ CellController.prototype.run = function (cellData) {
 
   this.findPlayerOverlaps(playerIds, players, coins);
   this.dropCoins(coins);
-  this.generateBotOps(playerIds, players);
   this.applyPlayerOps(playerIds, players, coins);
 };
 
@@ -185,30 +176,6 @@ CellController.prototype.dropCoins = function (coins) {
   }
 };
 
-CellController.prototype.generateBotOps = function (playerIds, players, coins) {
-  var self = this;
-
-  playerIds.forEach(function (playerId) {
-    var player = players[playerId];
-    // States which are external are managed by a different cell, therefore changes made to these
-    // states are not saved unless they are grouped with one or more internal states from the current cell.
-    // See util.groupStates() method near the bottom of this file for details.
-    if (player.subtype == 'bot' && !player.external) {
-      var radius = Math.round(player.diam / 2);
-      var isBotOnEdge = player.x <= radius || player.x >= config.WORLD_WIDTH - radius ||
-        player.y <= radius || player.y >= config.WORLD_HEIGHT - radius;
-
-      if (Math.random() <= player.changeDirProb || isBotOnEdge) {
-        var randIndex = Math.floor(Math.random() * self.botMoves.length);
-        player.repeatOp = self.botMoves[randIndex];
-      }
-      if (player.repeatOp) {
-        player.op = player.repeatOp;
-      }
-    }
-  });
-};
-
 CellController.prototype.keepPlayerOnGrid = function (player) {
   var radius = Math.round(player.diam / 2);
 
@@ -237,11 +204,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
 
     var playerOp = player.op;
     var moveSpeed;
-    if (player.subtype == 'bot') {
-      moveSpeed = player.speed;
-    } else {
-      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED;
-    }
+    moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED;
 
     if (playerOp) {
       var movementVector = {x: 0, y: 0};
@@ -289,16 +252,19 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     if (player.coinOverlaps) {
       player.coinOverlaps.forEach(function (coin) {
         if (self.testCircleCollision(player, coin).collided) {
-          if (coin.v == 'scrap') {
-            player.scrap += 1;
-          } else if (coin.v == 'wire') {
-            player.wire += 1;
-          } else if (coin.v == 'chip') {
-            player.chips += 1;
-          } else if (coin.v == 'quantum_chip') {
+          if (coin.v == 'quantum_chip' && player.quantum_chip == 0) {
             player.quantum_chip += 1;
+            self.coinManager.removeCoin(coin.id);
+          } else if (coin.v != 'quantum_chip') {
+            if (coin.v == 'scrap') {
+              player.scrap += 1;
+            } else if (coin.v == 'wire') {
+              player.wire += 1;
+            } else if (coin.v == 'chip') {
+              player.chips += 1;
+            }
+            self.coinManager.removeCoin(coin.id);
           }
-          self.coinManager.removeCoin(coin.id);
         }
       });
       delete player.coinOverlaps;
