@@ -717,7 +717,10 @@ module.exports.run = function (worker) {
         y: startingPos.y,
         diam: PLAYER_DIAMETER,
         mass: PLAYER_MASS,
-        score: 0
+        scrap: 0,
+        wire: 0,
+        chips: 0,
+        quantum_chip: 0
       };
 
       socket.player = stateManager.create(player);

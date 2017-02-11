@@ -53,10 +53,10 @@
         var SERVER_WORKER_ID;
 
         var youTextures = {
-          up: 'img/you-back.gif',
-          left: 'img/you-side-left.gif',
-          right: 'img/you-side-right.gif',
-          down: 'img/you-front.gif'
+          up: 'img/simplebot_back.gif',
+          left: 'img/simplebot_left.gif',
+          right: 'img/simplebot_right.gif',
+          down: 'img/simplebot_front.gif'
         };
 
         var othersTextures = {
@@ -73,13 +73,13 @@
           down: 'img/bot-front.gif'
         };
 
-        // Map the score value to the texture.
-        var grassTextures = {
-          1: 'img/grass-1.gif',
-          2: 'img/grass-2.gif',
-          3: 'img/grass-3.gif',
-          4: 'img/grass-4.gif'
-        };
+        // Mapping of different resources that can spawn
+        var resourceTextures = {
+          1: 'img/scrap_metal.gif',
+          2: 'img/wire.gif',
+          3: 'img/chip.gif',
+          4: 'img/quantum_chip.gif'
+        }
 
         // 1 means no smoothing. 0.1 is quite smooth.
         var CAMERA_SMOOTHING = 1;
@@ -138,10 +138,10 @@
           game.load.image('bot-right', botTextures.right);
           game.load.image('bot-left', botTextures.left);
 
-          game.load.image('grass-1', grassTextures[1]);
-          game.load.image('grass-2', grassTextures[2]);
-          game.load.image('grass-3', grassTextures[3]);
-          game.load.image('grass-4', grassTextures[4]);
+          game.load.image('resource-1', resourceTextures[1]);
+          game.load.image('resource-2', resourceTextures[2]);
+          game.load.image('resource-3', resourceTextures[3]);
+          game.load.image('resource-4', resourceTextures[4]);
         }
 
         function handleCellData(stateList) {
@@ -248,7 +248,10 @@
             user.texturePrefix = 'others';
           }
 
-          user.score = userData.score;
+          user.scrap = userData.scrap;
+          user.wire = userData.wire;
+          user.chips = userData.chips;
+          user.quantum_chip = userData.quantum_chip;
           user.sprite = sprite;
 
           user.sprite.width = Math.round(userData.diam * 0.73);
@@ -289,7 +292,10 @@
         function updateUser(userData) {
           var user = users[userData.id];
           if (user) {
-            user.score = userData.score;
+            user.scrap = userData.scrap;
+            user.wire = userData.wire;
+            user.chips = userData.chips;
+            user.quantum_chip = userData.quantum_chip;
             user.direction = userData.direction;
             moveUser(userData.id, userData.x, userData.y);
           } else {
@@ -312,7 +318,7 @@
             var coin = coinData;
             coins[coinData.id] = coin;
             coin.sprite = createTexturedSprite({
-              texture: 'grass-' + (coinData.t || '1')
+              texture: 'resource-' + (coinData.t || '1')
             });
             coin.sprite.x = coinData.x;
             coin.sprite.y = coinData.y;
@@ -385,9 +391,13 @@
           var now = Date.now();
 
           if (ENVIRONMENT == 'dev') {
-            game.debug.text('FPS:   ' + game.time.fps, 2, 14, "#00FF00");
             if (player) {
-              game.debug.text('Score: ' + player.score, 2, 30, "#00FF00");
+              game.debug.text('Scrap: ' + player.scrap, 2, 14, "#00FF00");
+              game.debug.text('Wire: ' + player.wire, 2, 30, "#00FF00");
+              game.debug.text('Chips: ' + player.chips, 2, 46, "#00FF00");
+              if (player.quantum_chip > 0) {
+                game.debug.text('Quantum Upgrade Available!', 2, 62, "#00FF00");
+              }
             }
           }
 
