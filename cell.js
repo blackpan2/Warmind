@@ -289,7 +289,15 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     if (player.coinOverlaps) {
       player.coinOverlaps.forEach(function (coin) {
         if (self.testCircleCollision(player, coin).collided) {
-          player.score += coin.v;
+          if (coin.v == 'scrap') {
+            player.scrap += 1;
+          } else if (coin.v == 'wire') {
+            player.wire += 1;
+          } else if (coin.v == 'chip') {
+            player.chips += 1;
+          } else if (coin.v == 'quantum_chip') {
+            player.quantum_chip += 1;
+          }
           self.coinManager.removeCoin(coin.id);
         }
       });

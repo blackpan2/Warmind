@@ -57,28 +57,28 @@ module.exports = {
   // The probabilities need to add up to 1.
   COIN_TYPES: [
     {
-      type: 4,
-      value: 1,
+      type: 1,
+      value: 'scrap',
       radius: 10,
-      probability: 0.25
-    },
-    {
-      type: 3,
-      value: 2,
-      radius: 10,
-      probability: 0.6
+      probability: 0.60
     },
     {
       type: 2,
-      value: 6,
-      radius: 10,
-      probability: 0.1
+      value: 'wire',
+      radius: 7,
+      probability: 0.30
     },
     {
-      type: 1,
-      value: 12,
+      type: 3,
+      value: 'chip',
       radius: 10,
-      probability: 0.05
+      probability: 0.9
+    },
+    {
+      type: 4,
+      value: 'quantum_chip',
+      radius: 8,
+      probability: 0.01
     }
   ],
 
