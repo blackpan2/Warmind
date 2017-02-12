@@ -72,6 +72,7 @@ function gameFunction() {
 
     function preload() {
         keys = {
+            //Todo add more functionality
             up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
@@ -288,7 +289,8 @@ function gameFunction() {
         });
 
         // Generate a random name for the user.
-        var playerName = 'user-' + Math.round(Math.random() * 10000);
+        // var playerName = 'user-' + Math.round(Math.random() * 10000);
+        var playerName = getUrlVars()["u"];
 
         function joinWorld() {
             socket.emit('join', {
@@ -393,4 +395,12 @@ function gameFunction() {
             }
         }
     }
-};
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
