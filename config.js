@@ -84,6 +84,15 @@ module.exports = {
         health: 10,
         maxHealth: 10
       }
+    },
+    {
+      id: 2,
+      desc: '+10 Max Health',
+      cost: [5, 3, 0],
+      effects: {
+        health: 10,
+        maxHealth: 10
+      }
     }
   ],
 

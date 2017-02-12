@@ -718,11 +718,12 @@ module.exports.run = function (worker) {
         mass: PLAYER_MASS,
         maxHealth: 100,
         health: 100,
-        scrap: 0,
-        wire: 0,
-        chips: 0,
+        scrap: 3,
+        wire: 2,
+        chips: 10,
         quantumChip: 0,
-        availableUpgrades: []
+        availableUpgrades: [],
+        purchasedUpgrades: []
       };
 
       socket.player = stateManager.create(player);

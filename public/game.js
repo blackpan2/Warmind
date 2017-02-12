@@ -77,7 +77,11 @@ function gameFunction() {
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
-            one: game.input.keyboard.addKey(Phaser.Keyboard.ONE)
+            one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
+            two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
+            three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
+            four: game.input.keyboard.addKey(Phaser.Keyboard.FOUR),
+            five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE)
         };
 
         game.load.image('background', BACKGROUND_TEXTURE);
@@ -205,6 +209,7 @@ function gameFunction() {
         user.chips = userData.chips;
         user.quantumChip = userData.quantumChip;
         user.availableUpgrades = userData.availableUpgrades;
+        user.purchasedUpgrades = userData.purchasedUpgrades;
         user.sprite = sprite;
 
         user.sprite.width = Math.round(userData.diam * 0.73);
@@ -251,6 +256,7 @@ function gameFunction() {
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
             user.availableUpgrades = userData.availableUpgrades;
+            user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
             moveUser(userData.id, userData.x, userData.y);
         } else {
@@ -337,9 +343,26 @@ function gameFunction() {
             didAction = true;
         }
         if (keys.one.isDown && player.availableUpgrades.length >= 1) {
-            player.scrap = player.availableUpgrades[0].desc;
-            // didAction. = true;
+            playerOp.upgrade = player.availableUpgrades[0];
+            didAction = true;
         }
+        if (keys.two.isDown && player.availableUpgrades.length >= 2) {
+            playerOp.upgrade = player.availableUpgrades[1];
+            didAction = true;
+        }
+        if (keys.three.isDown && player.availableUpgrades.length >= 3) {
+            playerOp.upgrade = player.availableUpgrades[2];
+            didAction = true;
+        }
+        if (keys.four.isDown && player.availableUpgrades.length >= 4) {
+            playerOp.upgrade = player.availableUpgrades[3];
+            didAction = true;
+        }
+        if (keys.five.isDown && player.availableUpgrades.length >= 5) {
+            playerOp.upgrade = player.availableUpgrades[4];
+            didAction = true;
+        }
+
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
             lastActionTime = Date.now();
             // Send the player operations for the server to process.
@@ -348,7 +371,6 @@ function gameFunction() {
     }
 
     function render() {
-        // var test = game.add.sprite(20, 20, 'scrap-icon');
         var now = Date.now();
         currY = 14;
         dY = 16;
@@ -361,6 +383,8 @@ function gameFunction() {
                 game.debug.text('Wire: ' + player.wire, 2, currY, "#00FF00");
                 currY += dY;
                 game.debug.text('Chips: ' + player.chips, 2, currY, "#00FF00");
+                currY += dY;
+                game.debug.text('Purchased Upgrades: ' + player.purchasedUpgrades.toString(), 2, currY, "#00FF00");
                 currY += dY;
                 if (player.quantumChip > 0) {
                     game.debug.text('Quantum Upgrade Available!', 2, currY, "#00FF00");
