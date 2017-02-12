@@ -79,6 +79,7 @@ function gameFunction() {
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
             spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+
             one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
@@ -450,7 +451,6 @@ function gameFunction() {
             }
         }
     }
-};
 }
 
 function getUrlVars() {

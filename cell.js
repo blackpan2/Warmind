@@ -266,6 +266,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
       player.playerOverlaps.forEach(function (otherPlayer) {
         self.resolvePlayerCollision(player, otherPlayer);
         self.keepPlayerOnGrid(otherPlayer);
+
       });
       delete player.playerOverlaps;
     }
@@ -387,6 +388,8 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
   var result = this.testCircleCollision(player, otherPlayer);
 
   if (result.collided) {
+    // player.health -= 10;
+    // otherPlayer.health -= 10;
     var olv = result.overlapV;
 
     var totalMass = player.mass + otherPlayer.mass;
