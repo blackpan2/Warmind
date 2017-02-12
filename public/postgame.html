@@ -22,7 +22,6 @@
             left: 50%;
             height: 80%;
             width: 75%;
-            line-height: 100px;
 
             text-align: center;
             transform: translate(-50%, -50%);
@@ -37,7 +36,9 @@
     <h1 id="name"></h1>
     <h2>Better luck next time soldier</h2>
     <p>During combat you were able to collect:</p>
-    <p id=""></p>
+    <p><b id="scrap"></b> Scrap</p>
+    <p><b id="wire"></b> Wire</p>
+    <p><b id="chip"></b> Chips</p>
 
 
 </div>
@@ -50,7 +51,10 @@
         return vars;
     }
 
-    document.getElementById("name").innerHTML = "<h1> You died " + getUrlVars()["u"] + "!</h1>";
+    document.getElementById("name").innerHTML = "You died " + getUrlVars()["u"] + "!";
+    document.getElementById("scrap").innerHTML = getUrlVars()["s"];
+    document.getElementById("wire").innerHTML = getUrlVars()["w"];
+    document.getElementById("chip").innerHTML = getUrlVars()["c"];
 </script>
 </body>
 </html>
