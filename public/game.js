@@ -504,22 +504,27 @@ function gameFunction() {
                     game.debug.text('Upgrades:', 2, currY + dY, "#00FF00");
                     currY += dY * 2;
                     player.availableUpgrades.forEach(function (upgrade, index) {
-                        if (index >= 9) {
+                        if (index > 1) {
                             return false;
                         }
-                        game.debug.text('[' + (index + 1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
-                        currY += dY;
-                        var costString = '-> ';
+                        var costString = ' (';
                         if (upgrade.cost[0] > 0) {
-                            costString += upgrade.cost[0] + ' Scrap '
+                            costString += upgrade.cost[0] + 's';
                         }
                         if (upgrade.cost[1] > 0) {
-                            costString += upgrade.cost[1] + ' Wire '
+                            if (upgrade.cost[0] > 0) {
+                                costString += ', '
+                            }
+                            costString += upgrade.cost[1] + 'w';
                         }
                         if (upgrade.cost[2] > 0) {
-                            costString += upgrade.cost[2] + ' Chips'
+                            if (upgrade.cost[0] > 0 || upgrade.cost[1] > 0) {
+                                costString += ', '
+                            }
+                            costString += upgrade.cost[2] + 'c';
                         }
-                        game.debug.text(costString, 15, currY, "#00FF00");
+                        costString += ')';
+                        game.debug.text('[' + (index + 1) + '] ' + upgrade.desc + costString, 2, currY, "#00FF00");
                         currY += dY;
                     });
                 }

@@ -79,7 +79,7 @@ module.exports = {
         // Tier 1
         {
           id: 1,
-          desc: '+5 Max Health',
+          desc: 'Health',
           cost: [5, 2, 0],
           effects: {
             health: 5,
@@ -88,7 +88,7 @@ module.exports = {
         },
         {
           id: 1,
-          desc: '+2 Base Damage',
+          desc: 'Attack',
           cost: [5, 2, 0],
           effects: {
             attack: 2
@@ -97,7 +97,7 @@ module.exports = {
         // Tier 2
         {
           id: 2,
-          desc: '+3 Base Damage',
+          desc: 'Attack',
           cost: [7, 3, 0],
           effects: {
             attack: 3
@@ -105,7 +105,7 @@ module.exports = {
         },
         {
           id: 2,
-          desc: '+2 Armor',
+          desc: 'Armor',
           cost: [7, 3, 0],
           effects: {
             defense: 2
@@ -114,7 +114,7 @@ module.exports = {
         // Tier 3
         {
           id: 3,
-          desc: '+3 Armor',
+          desc: 'Armor',
           cost: [10, 5, 1],
           effects: {
             defense: 3
@@ -122,7 +122,7 @@ module.exports = {
         },
         {
           id: 3,
-          desc: '+10 Max Health',
+          desc: 'Health',
           cost: [10, 5, 1],
           effects: {
             health: 10,
@@ -132,7 +132,7 @@ module.exports = {
         // Tier 4
         {
           id: 4,
-          desc: '+5 Base Damage',
+          desc: 'Attack',
           cost: [12, 6, 2],
           effects: {
             attack: 5
@@ -140,7 +140,7 @@ module.exports = {
         },
         {
           id: 4,
-          desc: '+10 Max Health',
+          desc: 'Health',
           cost: [12, 6, 2],
           effects: {
             health: 10,
@@ -150,7 +150,7 @@ module.exports = {
         // Tier 5
         {
           id: 5,
-          desc: '+5 Armor',
+          desc: 'Armor',
           cost: [13, 8, 2],
           effects: {
             defense: 5
@@ -158,7 +158,7 @@ module.exports = {
         },
         {
           id: 5,
-          desc: '+6 Base Damage',
+          desc: 'Attack',
           cost: [13, 8, 2],
           effects: {
             attack: 6
@@ -167,7 +167,7 @@ module.exports = {
         // Tier 6
         {
           id: 6,
-          desc: '+15 Max Health',
+          desc: 'Health',
           cost: [0, 0, 5],
           effects: {
             health: 15,
@@ -176,7 +176,7 @@ module.exports = {
         },
         {
           id: 6,
-          desc: '+6 Armor',
+          desc: 'Armor',
           cost: [0, 0, 5],
           effects: {
             defense: 6
@@ -185,7 +185,7 @@ module.exports = {
         // Tier 7
         {
           id: 7,
-          desc: '+8 Base Damage',
+          desc: 'Attack',
           cost: [0, 10, 5],
           effects: {
             attack: 8
@@ -193,7 +193,7 @@ module.exports = {
         },
         {
           id: 7,
-          desc: '+15 Max Health',
+          desc: 'Health',
           cost: [0, 10, 5],
           effects: {
             health: 15,
@@ -203,7 +203,7 @@ module.exports = {
         // Tier 8
         {
           id: 8,
-          desc: '+8 Armor',
+          desc: 'Armor',
           cost: [10, 10, 7],
           effects: {
             defense: 8
@@ -211,7 +211,7 @@ module.exports = {
         },
         {
           id: 8,
-          desc: '+20 Max Health',
+          desc: 'Health',
           cost: [10, 10, 7],
           effects: {
             health: 20,
@@ -221,7 +221,7 @@ module.exports = {
         // Tier 9
         {
           id: 9,
-          desc: '+10 Base Damage',
+          desc: 'Attack',
           cost: [15, 10, 10],
           effects: {
             attack: 10
@@ -229,7 +229,7 @@ module.exports = {
         },
         {
           id: 9,
-          desc: '+10 Armor',
+          desc: 'Armor',
           cost: [15, 10, 10],
           effects: {
             defense: 10
