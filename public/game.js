@@ -452,7 +452,7 @@ function gameFunction() {
         if(player && player.dead == false && player.health <= 0) {
             player.dead = true;
             window.location.replace('postgame.html?u=' + player.name +'&?s=' + player.totalScrap + '&?w='
-                + player.totalWire +'&?c=' +player.totalChips);
+                + player.totalWire +'&?c=' + player.totalChips + '&?k=' + player.totalKills);
             removeUser(player);
         }
     }

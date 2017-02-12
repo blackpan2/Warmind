@@ -35,12 +35,16 @@
 <div class="customForm">
     <h1 id="name"></h1>
     <h2>Better luck next time soldier</h2>
+    <p><b id="kills"></b> Kills</p>
     <p>During combat you were able to collect:</p>
     <p><b id="scrap"></b> Scrap</p>
     <p><b id="wire"></b> Wire</p>
     <p><b id="chip"></b> Chips</p>
     <p><b id="quantum"></b> Chips</p>
 
+    <form action="/">
+        <input type="submit" value="Play Again">
+    </form>
 
 </div>
 <script>
@@ -56,6 +60,7 @@
     document.getElementById("scrap").innerHTML = getUrlVars()["s"];
     document.getElementById("wire").innerHTML = getUrlVars()["w"];
     document.getElementById("chip").innerHTML = getUrlVars()["c"];
+    document.getElementById("kills").innerHTML = getUrlVars()["k"];
 </script>
 </body>
 </html>
