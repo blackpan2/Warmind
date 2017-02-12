@@ -80,7 +80,6 @@ function gameFunction() {
 
     function preload() {
         keys = {
-            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
             up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
@@ -402,10 +401,6 @@ function gameFunction() {
             didAction = true;
         }
 
-        if (keys.spacebar.isDown) {
-            playerOp.spacebar_pressed = 1;
-            didAction = true;
-        } 
         if (keys.one.isDown && player.availableUpgrades.length >= 1) {
             playerOp.upgrade = player.availableUpgrades[0];
             didAction = true;

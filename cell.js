@@ -234,13 +234,6 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
                 player.direction = 'left';
                 movedHorizontally = true;
             }
-            //if (playerOp.spacebar_pressed) {
-            //  console.log(player.myval);
-            //  //console.log(player.weapon);
-            //  if (player.weapon){
-            //    player.weapon.fire();
-            //  }
-            //}
 
             if (playerOp.repair && player.scrap > 0) {
                 player.scrap -= 1;
@@ -264,7 +257,6 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
 
                 Object.keys(playerOp.upgrade.effects).forEach(function (key) {
                     var value = playerOp.upgrade.effects[key];
-                    console.log(key + " -> " + value);
                     player[key] += value;
                 })
 
@@ -410,10 +402,6 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
   var result = this.testCircleCollision(player, otherPlayer);
 
   if (result.collided) {
-    //console.log("\nPlayer:");
-    //console.log(player);
-    //console.log("\notherPlayer:")
-    //console.log(otherPlayer);
     var playerAttack = player.attack;
     var otherPlayerAttack = otherPlayer.attack;
     if (player.quantumPotential) {
