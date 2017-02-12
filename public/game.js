@@ -444,6 +444,11 @@ function gameFunction() {
             // Send the player operations for the server to process.
             socket.emit('action', playerOp);
         }
+
+        if(player && player.health <= 0) {
+            window.location.replace('postgame.html');
+        }
+
     }
 
     function render() {
