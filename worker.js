@@ -730,7 +730,11 @@ module.exports.run = function (worker) {
                 scrap: 0,
                 wire: 0,
                 chips: 0,
-                quantumChip: 0
+                quantumChip: 0,
+                totalScrap: 0,
+                totalWire: 0,
+                totalChips: 0,
+                totalQuantumChips: 0
             };
 
             socket.player = stateManager.create(player);

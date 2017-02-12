@@ -240,6 +240,10 @@ function gameFunction() {
         user.scrap = userData.scrap;
         user.wire = userData.wire;
         user.chips = userData.chips;
+        user.totalScrap = userData.scrap;
+        user.totalWire = userData.wire;
+        user.totalChips = userData.chips;
+        user.totalQuantumChips;
         user.quantumChip = userData.quantumChip;
         user.quantumPotential = userData.quantumPotential;
         user.dead = userData.dead;
@@ -446,6 +450,7 @@ function gameFunction() {
         }
 
         if(player && player.dead == false && player.health <= 0) {
+            console.log(player);
             player.dead = true;
             window.location.replace('postgame.html?u=' + player.name);
         }
