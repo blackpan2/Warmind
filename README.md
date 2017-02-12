@@ -1,7 +1,5 @@
-IOGrid
-======
-
-[![Join the chat at https://gitter.im/SocketCluster/iogrid](https://badges.gitter.im/SocketCluster/iogrid.svg)](https://gitter.im/SocketCluster/iogrid?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Warmind
+=======
 
 IOGrid is an IO game engine/framework built using SocketCluster and Phaser.
 It lets you build multi-player games like Agar.io and Slither.io and also multi-player simulations/experiments for research purposes.
