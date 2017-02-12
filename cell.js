@@ -205,7 +205,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     var playerOp = player.op;
     var moveSpeed;
     if (player.quantumPotential) {
-      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 2
+      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 1.3
     } else {
       moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);      
     }

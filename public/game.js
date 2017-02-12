@@ -410,7 +410,7 @@ function gameFunction() {
             setTimeout(function(){
                 playerOp = {quantumPotential: 'false'};
                 socket.emit('action', playerOp);
-            }, 3000);
+            }, 10000);
             didAction = true;
         }
 
@@ -477,8 +477,12 @@ function gameFunction() {
                 }
                 game.debug.text('Health: ' + player.health, 2, currY, "#00FF00");
                 currY += dY;
-                game.debug.text('Scrap: ' + player.scrap, 2, currY, "#00FF00");
+                game.debug.text('Attack: ' + player.attack, 2, currY, "#00FF00");
                 currY += dY;
+                game.debug.text('Armor: ' + player.defense, 2, currY, "#00FF00");
+                currY += dY;
+                game.debug.text('Scrap: ' + player.scrap, 2, currY+dY, "#00FF00");
+                currY += dY*2;
                 game.debug.text('Wire: ' + player.wire, 2, currY, "#00FF00");
                 currY += dY;
                 game.debug.text('Chips: ' + player.chips, 2, currY, "#00FF00");
