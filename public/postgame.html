@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Warmind</title>
+    <title>Warmind Results</title>
     <link rel="icon" type="image/png" href="/favicon.ico">
     <style>
         html {
@@ -13,13 +13,44 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            background-color: #666666;
+        }
+
+        .customForm {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: 80%;
+            width: 75%;
+            line-height: 100px;
+
+            text-align: center;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            border-radius: 5px;
+
         }
     </style>
 </head>
 <body>
-<p>You died!</p>
-<script>
+<div class="customForm">
+    <h1 id="name"></h1>
+    <h2>Better luck next time soldier</h2>
+    <p>During combat you were able to collect:</p>
+    <p id=""></p>
 
+
+</div>
+<script>
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
+    document.getElementById("name").innerHTML = "<h1> You died " + getUrlVars()["u"] + "!</h1>";
 </script>
 </body>
 </html>

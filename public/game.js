@@ -44,7 +44,7 @@ function gameFunction() {
         3: 'img/chip.gif',
         4: 'img/quantum_chip.gif',
         5: 'img/bullet1.gif'
-    }
+    };
 
     // 1 means no smoothing. 0.1 is quite smooth.
     var CAMERA_SMOOTHING = 1;
@@ -242,7 +242,7 @@ function gameFunction() {
         user.chips = userData.chips;
         user.quantumChip = userData.quantumChip;
         user.quantumPotential = userData.quantumPotential;
-        user.quantumPotentialTimeout = userData.quantumPotentialTimeout;
+        user.dead = userData.dead;
         user.availableUpgrades = userData.availableUpgrades;
         user.purchasedUpgrades = userData.purchasedUpgrades;
         user.sprite = sprite;
@@ -293,7 +293,7 @@ function gameFunction() {
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
             user.quantumPotential = userData.quantumPotential;
-            user.quantumPotentialTimeout = userData.quantumPotentialTimeout;
+            user.dead = userData.dead;
             user.availableUpgrades = userData.availableUpgrades;
             user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
@@ -445,8 +445,9 @@ function gameFunction() {
             socket.emit('action', playerOp);
         }
 
-        if(player && player.health <= 0) {
-            window.location.replace('postgame.html');
+        if(player && player.dead == false && player.health <= 0) {
+            player.dead = true;
+            window.location.replace('postgame.html?u=' + player.name);
         }
 
     }

@@ -721,7 +721,7 @@ module.exports.run = function (worker) {
                 purchasedUpgrades: [],
 
                 quantumPotential: false,
-                quantumPotentialTimeout: false,
+                dead: false,
                 maxHealth: 100,
                 health: 100,
                 attack: 18,
