@@ -75,7 +75,8 @@ function gameFunction() {
             up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
-            left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT)
+            left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+            one: game.input.keyboard.addKey(Phaser.Keyboard.ONE)
         };
 
         game.load.image('background', BACKGROUND_TEXTURE);
@@ -283,9 +284,6 @@ function gameFunction() {
         background = game.add.tileSprite(0, 0, WORLD_WIDTH, WORLD_HEIGHT, 'background');
         game.time.advancedTiming = true;
         game.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-        scrap_icon = createTexturedSprite({
-            texture: 'scrap-icon'
-        });
 
         // Generate a random name for the user.
         var playerName = 'user-' + Math.round(Math.random() * 10000);
@@ -336,6 +334,10 @@ function gameFunction() {
             playerOp.l = 1;
             didAction = true;
         }
+        if (keys.one.isDown && player.availableUpgrades.length >= 1) {
+            player.scrap = player.availableUpgrades[0].desc;
+            // didAction. = true;
+        }
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
             lastActionTime = Date.now();
             // Send the player operations for the server to process.
@@ -344,6 +346,7 @@ function gameFunction() {
     }
 
     function render() {
+        // var test = game.add.sprite(20, 20, 'scrap-icon');
         var now = Date.now();
         currY = 14;
         dY = 16;
@@ -365,10 +368,19 @@ function gameFunction() {
                     game.debug.text('Upgrades:', 2, currY+dY, "#00FF00");
                     currY += dY*2;
                     player.availableUpgrades.forEach(function (upgrade, index) {
-                        game.debug.text(upgrade.cost.toString(), 6, currY, "#00FF00");
-                        currY += dY;
-                        // game.debug.spriteInfo('scrap_icon', 100, 100);
                         game.debug.text('[' + (index+1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
+                        currY += dY;
+                        var costString = '-> ';
+                        if (upgrade.cost[0] > 0) {
+                            costString += upgrade.cost[0] + ' Scrap '
+                        }
+                        if (upgrade.cost[1] > 0) {
+                            costString += upgrade.cost[1] + ' Wire '
+                        }
+                        if (upgrade.cost[2] > 0) {
+                            costString += upgrade.cost[2] + ' Chips'
+                        }
+                        game.debug.text(costString, 15, currY, "#00FF00");
                         currY += dY;
                     });
                 }

@@ -77,6 +77,7 @@ module.exports = {
   // cost: [scrap, wire, chips]
   UPGRADES: [
     {
+      id: 1,
       desc: '+10 Max Health',
       cost: [5, 2, 0],
       effects: {
