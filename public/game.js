@@ -448,6 +448,7 @@ function gameFunction() {
             window.location.assign('postgame.html?u=' + player.name +'&?s=' + player.totalScrap + '&?w='
                 + player.totalWire +'&?c=' + player.totalChips + '&?k=' + player.totalKills);
             removeUser(player);
+            player.dead = false;
         }
     }
 
