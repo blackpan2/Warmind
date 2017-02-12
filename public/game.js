@@ -1,4 +1,5 @@
 function gameFunction() {
+  console.log("top of gameFunction")
     var game, playerId, player;
     var users = {};
     var coins = {};
@@ -184,6 +185,8 @@ function gameFunction() {
         user.swid = userData.swid;
         user.name = userData.name;
 
+        //player.myval = 500;
+
         var textStyle = {
             font: '16px Arial',
             fill: '#ff000d',
@@ -221,8 +224,6 @@ function gameFunction() {
         user.diam = user.sprite.width;
 
         user.weapon = game.add.weapon(30, 'bullet1');
-        console.log(user.weapon);
-        console.log('poop');
         user.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
         //  The speed at which the bullet is fired
         user.weapon.bulletSpeed = 400;
@@ -361,6 +362,7 @@ function gameFunction() {
         }
         if (keys.spacebar.isDown) {
             playerOp.spacebar_pressed = 1;
+            //if(player) player.weapon.fire();
             didAction = true;
         }
         if (keys.one.isDown && player.availableUpgrades.length >= 1) {

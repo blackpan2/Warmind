@@ -231,12 +231,13 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         player.direction = 'left';
         movedHorizontally = true;
       }
-      if (playerOp.spacebar_pressed) {
-        //console.log(player.weapon);
-        if (player.weapon){
-          player.weapon.fire();
-        }
-      }
+      //if (playerOp.spacebar_pressed) {
+      //  console.log(player.myval);
+      //  //console.log(player.weapon);
+      //  if (player.weapon){
+      //    player.weapon.fire();
+      //  }
+      //}
 
       if (playerOp.upgrade && player.purchasedUpgrades.indexOf(playerOp.upgrade.id) < 0) {
         player.purchasedUpgrades.push(playerOp.upgrade.id);
