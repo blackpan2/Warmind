@@ -36,7 +36,7 @@
     <h1>Warmind</h1>
     <form name="userform" action="/game.html">
         Username: <input autofocus type="text" name="u" pattern="[a-zA-Z0-9]{1,15}"
-                         title="Usernames can only letters and numbers">
+                         title="Usernames can only letters and numbers, Max 15 characters">
         <input type="submit" value="Submit">
     </form>
     <h2>Controls:</h2>
@@ -48,16 +48,7 @@
     </p>
 </div>
 <script>
-    function verifyUser(sub) {
-        var letterNumber = /^[0-9a-zA-Z]+$/;
-        if((sub.value.match(letterNumber))){
-            return true;
-        }
-        else {
-            alert("message");
-            return false;
-        }
-    }
+
 </script>
 </body>
 </html>
