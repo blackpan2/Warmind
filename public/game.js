@@ -1,5 +1,4 @@
 function gameFunction() {
-  console.log("top of gameFunction")
     var game, playerId, player;
     var users = {};
     var coins = {};
@@ -96,6 +95,7 @@ function gameFunction() {
         };
 
         prevKeyUp = {
+            spacebar: false,
             q: false,
             e: false,
             one: false,
@@ -103,7 +103,7 @@ function gameFunction() {
             three: false,
             four: false,
             five: false
-        }
+        };
 
         game.load.image('background', BACKGROUND_TEXTURE);
 
@@ -126,7 +126,6 @@ function gameFunction() {
         game.load.image('resource-2', resourceTextures[2]);
         game.load.image('resource-3', resourceTextures[3]);
         game.load.image('resource-4', resourceTextures[4]);
-        game.load.image('bullet1', resourceTextures[5]);
 
         game.load.image('scrap-icon', 'img/scrap_metal_icon.gif');
     }
@@ -212,8 +211,6 @@ function gameFunction() {
         user.swid = userData.swid;
         user.name = userData.name;
 
-        //player.myval = 500;
-
         var textStyle = {
             font: '16px Arial',
             fill: '#ff000d',
@@ -245,6 +242,7 @@ function gameFunction() {
         user.chips = userData.chips;
         user.quantumChip = userData.quantumChip;
         user.quantumPotential = userData.quantumPotential;
+        user.quantumPotentialTimeout = userData.quantumPotentialTimeout;
         user.availableUpgrades = userData.availableUpgrades;
         user.purchasedUpgrades = userData.purchasedUpgrades;
         user.sprite = sprite;
@@ -252,16 +250,6 @@ function gameFunction() {
         user.sprite.width = Math.round(userData.diam * 0.73);
         user.sprite.height = userData.diam;
         user.diam = user.sprite.width;
-
-        user.weapon = game.add.weapon(30, 'bullet1');
-        user.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-        //  The speed at which the bullet is fired
-        user.weapon.bulletSpeed = 400;
-        //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 200ms
-        user.weapon.fireRate = 200;
-        //  Add a variance to the bullet speed by +- this value
-        user.weapon.bulletSpeedVariance = 200;
-        user.weapon.trackSprite(sprite, 14, 0);
 
         moveUser(userData.id, userData.x, userData.y);
 
@@ -305,6 +293,7 @@ function gameFunction() {
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
             user.quantumPotential = userData.quantumPotential;
+            user.quantumPotentialTimeout = userData.quantumPotentialTimeout;
             user.availableUpgrades = userData.availableUpgrades;
             user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
@@ -344,7 +333,6 @@ function gameFunction() {
         game.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
 
         // Generate a random name for the user.
-        // var playerName = 'user-' + Math.round(Math.random() * 10000);
         var playerName = getUrlVars()["u"];
 
         function joinWorld() {
@@ -402,20 +390,21 @@ function gameFunction() {
             prevKeyUp.q = false;
         }
 
-        if (keys.e.isDown && !prevKeyUp.e && player.quantumChip > 0) {
-            prevKeyUp.e = true;
-            playerOp.quantumPotential = true;
+        if (keys.e.isDown && player.quantumChip > 0) {
+            playerOp.quantumPotential = 'true';
+            setTimeout(function () {
+                playerOp = {quantumPotential: 'false'};
+                socket.emit('action', playerOp);
+            }, 3000);
             didAction = true;
-        } else if (keys.e.isUp) {
-            prevKeyUp.e = false;
         }
 
         if (keys.spacebar.isDown) {
             playerOp.spacebar_pressed = 1;
-            //if(player) player.weapon.fire();
             didAction = true;
+        } else if (keys.spacebar.isUp) {
+            prevKeyUp.spacebar = false;
         }
-
         if (keys.one.isDown && player.availableUpgrades.length >= 1) {
             playerOp.upgrade = player.availableUpgrades[0];
             didAction = true;
@@ -464,10 +453,10 @@ function gameFunction() {
         if (ENVIRONMENT == 'dev') {
             if (player) {
                 if (player.health < player.maxHealth) {
-                    game.debug.text('Repair: \'Q\' (1 scrap)', window.innerWidth/2-70, 14, "#00FF00");
+                    game.debug.text('Repair: \'Q\' (1 scrap)', window.innerWidth / 2 - 70, 14, "#00FF00");
                 }
                 if (player.quantumChip > 0) {
-                    game.debug.text('Activate Quantum Potential (Press \'E\')', window.innerWidth/2-125, 30, "#00FF00");
+                    game.debug.text('Activate Quantum Potential (Press \'E\')', window.innerWidth / 2 - 125, 30, "#00FF00");
                 }
                 game.debug.text('Health: ' + player.health, 2, currY, "#00FF00");
                 currY += dY;
@@ -480,10 +469,10 @@ function gameFunction() {
                 // game.debug.text('Purchased Upgrades: ' + player.purchasedUpgrades.toString(), 2, currY, "#00FF00");
                 // currY += dY;
                 if (player.availableUpgrades.length > 0) {
-                    game.debug.text('Upgrades:', 2, currY+dY, "#00FF00");
-                    currY += dY*2;
+                    game.debug.text('Upgrades:', 2, currY + dY, "#00FF00");
+                    currY += dY * 2;
                     player.availableUpgrades.forEach(function (upgrade, index) {
-                        game.debug.text('[' + (index+1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
+                        game.debug.text('[' + (index + 1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
                         currY += dY;
                         var costString = '-> ';
                         if (upgrade.cost[0] > 0) {
@@ -524,7 +513,7 @@ function gameFunction() {
 
 function getUrlVars() {
     var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
         vars[key] = value;
     });
     return vars;
