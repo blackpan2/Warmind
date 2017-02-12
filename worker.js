@@ -722,6 +722,7 @@ module.exports.run = function (worker) {
         wire: 0,
         chips: 0,
         quantumChip: 0,
+        weapon: null,
         availableUpgrades: []
       };
 

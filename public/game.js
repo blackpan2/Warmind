@@ -35,7 +35,8 @@ function gameFunction() {
         1: 'img/scrap_metal.gif',
         2: 'img/wire.png',
         3: 'img/chip.gif',
-        4: 'img/quantum_chip.gif'
+        4: 'img/quantum_chip.gif',
+        5: 'img/bullet1.gif'
     }
 
     // 1 means no smoothing. 0.1 is quite smooth.
@@ -75,7 +76,8 @@ function gameFunction() {
             up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
-            left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT)
+            left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
         };
 
         game.load.image('background', BACKGROUND_TEXTURE);
@@ -94,6 +96,7 @@ function gameFunction() {
         game.load.image('resource-2', resourceTextures[2]);
         game.load.image('resource-3', resourceTextures[3]);
         game.load.image('resource-4', resourceTextures[4]);
+        game.load.image('bullet1', resourceTextures[5]);
 
         game.load.image('scrap-icon', 'img/scrap_metal_icon.gif');
     }
@@ -209,6 +212,18 @@ function gameFunction() {
         user.sprite.height = userData.diam;
         user.diam = user.sprite.width;
 
+        user.weapon = game.add.weapon(30, 'bullet1');
+        console.log(user.weapon);
+        console.log('poop');
+        user.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+        //  The speed at which the bullet is fired
+        user.weapon.bulletSpeed = 400;
+        //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 200ms
+        user.weapon.fireRate = 200;
+        //  Add a variance to the bullet speed by +- this value
+        user.weapon.bulletSpeedVariance = 200;
+        user.weapon.trackSprite(sprite, 14, 0);
+
         moveUser(userData.id, userData.x, userData.y);
 
         if (userData.id == playerId) {
@@ -250,6 +265,7 @@ function gameFunction() {
             user.quantumChip = userData.quantumChip;
             user.availableUpgrades = userData.availableUpgrades;
             user.direction = userData.direction;
+            user.weapon = userData.weapon;
             moveUser(userData.id, userData.x, userData.y);
         } else {
             createUserSprite(userData);
@@ -334,6 +350,10 @@ function gameFunction() {
         }
         if (keys.left.isDown) {
             playerOp.l = 1;
+            didAction = true;
+        }
+        if (keys.spacebar.isDown) {
+            playerOp.spacebar_pressed = 1;
             didAction = true;
         }
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {

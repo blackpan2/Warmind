@@ -231,6 +231,12 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         player.direction = 'left';
         movedHorizontally = true;
       }
+      if (playerOp.spacebar_pressed) {
+        //console.log(player.weapon);
+        if (player.weapon){
+          player.weapon.fire();
+        }
+      }
 
       if (movedHorizontally && movedVertically) {
         movementVector.x *= self.diagonalSpeedFactor;
