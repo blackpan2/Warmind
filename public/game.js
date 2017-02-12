@@ -452,7 +452,7 @@ function gameFunction() {
         if(player && player.dead == false && player.health <= 0) {
             player.dead = true;
             window.location.replace('postgame.html?u=' + player.name +'&?s=' + player.totalScrap + '&?w='
-                + player.totalWire +'&?c=' +player.totalChips);
+                + player.totalWire +'&?c=' + player.totalChips + '&?k=' + player.totalKills);
             removeUser(player);
         }
     }
@@ -474,6 +474,7 @@ function gameFunction() {
                         usersArray.push(users[i]);
                     }
                 }
+                usersArray.sort(compareKills);
                 usersArray.forEach(function (user) {
                     game.debug.text('| ' + user.name + ': ' + user.totalKills, window.innerWidth-200, playersY, "#00FF00");
                     playersY += dY;
@@ -556,4 +557,8 @@ function getUrlVars() {
         vars[key] = value;
     });
     return vars;
+}
+
+function compareKills(a, b) {
+    return a.totalKills - b.totalKills;
 }
