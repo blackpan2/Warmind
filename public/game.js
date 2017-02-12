@@ -457,9 +457,22 @@ function gameFunction() {
     function render() {
         var now = Date.now();
         currY = 14;
+        playersY = 14;
         dY = 16;
         if (ENVIRONMENT == 'dev') {
             if (player) {
+                game.debug.text('Players:', window.innerWidth-200, playersY, "#00FF00");
+                playersY += dY*2;
+                var usersArray = [];
+                for (var i in users) {
+                    if (users.hasOwnProperty(i)) {
+                        usersArray.push(users[i]);
+                    }
+                }
+                usersArray.forEach(function (user) {
+                    game.debug.text(user.name, window.innerWidth-200, playersY, "#00FF00");
+                    playersY += dY;
+                });
                 if (player.health < player.maxHealth && player.scrap > 0) {
                     game.debug.text('Repair +1 Health: \'Q\' (1 scrap)', window.innerWidth / 2 - 110, 14, "#00FF00");
                 }
