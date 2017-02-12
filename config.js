@@ -9,7 +9,7 @@ module.exports = {
     // Dividing the world into tall vertical strips (instead of square cells)
     // tends to be more efficient (but this may vary depending on your use case
     // and world size).
-    WORLD_CELL_WIDTH: 1000,
+    WORLD_CELL_WIDTH: 4000,
     WORLD_CELL_HEIGHT: 4000,
     /*
      The WORLD_CELL_OVERLAP_DISTANCE allows players/states from two different
