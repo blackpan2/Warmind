@@ -1,7 +1,7 @@
 function gameFunction() {
     var game, playerId, player;
-    users = {};
-    coins = {};
+    var users = {};
+    var coins = {};
 
     var WORLD_WIDTH;
     var WORLD_HEIGHT;
