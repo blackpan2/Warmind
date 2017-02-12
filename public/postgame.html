@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Warmind</title>
+    <title>Warmind Results</title>
     <link rel="icon" type="image/png" href="/favicon.ico">
     <style>
         html {
@@ -13,13 +13,48 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            background-color: #666666;
+        }
+
+        .customForm {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: 80%;
+            width: 75%;
+
+            text-align: center;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            border-radius: 5px;
+
         }
     </style>
 </head>
 <body>
-<p>You died!</p>
-<script>
+<div class="customForm">
+    <h1 id="name"></h1>
+    <h2>Better luck next time soldier</h2>
+    <p>During combat you were able to collect:</p>
+    <p><b id="scrap"></b> Scrap</p>
+    <p><b id="wire"></b> Wire</p>
+    <p><b id="chip"></b> Chips</p>
 
+
+</div>
+<script>
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
+    document.getElementById("name").innerHTML = "You died " + getUrlVars()["u"] + "!";
+    document.getElementById("scrap").innerHTML = getUrlVars()["s"];
+    document.getElementById("wire").innerHTML = getUrlVars()["w"];
+    document.getElementById("chip").innerHTML = getUrlVars()["c"];
 </script>
 </body>
 </html>

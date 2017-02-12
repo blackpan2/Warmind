@@ -206,7 +206,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         if (player.quantumPotential) {
           moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 1.5
         } else {
-          moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);      
+          moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);
         }
 
         if (playerOp) {
@@ -244,6 +244,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
 
             if (playerOp.repair && player.scrap > 0) {
                 player.scrap -= 1;
+
                 player.health += 1;
             }
 
@@ -292,14 +293,18 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
                 if (self.testCircleCollision(player, coin).collided) {
                     if (coin.v == 'quantumChip' && player.quantumChip == 0 && !player.quantumPotential) {
                         player.quantumChip += 1;
+                        player.totalQuantumChips += 1;
                         self.coinManager.removeCoin(coin.id);
                     } else if (coin.v != 'quantumChip') {
                         if (coin.v == 'scrap') {
                             player.scrap += 1;
+                            player.totalScrap += 1;
                         } else if (coin.v == 'wire') {
                             player.wire += 1;
+                            player.totalWire += 1;
                         } else if (coin.v == 'chip') {
                             player.chips += 1;
+                            player.totalChips += 1;
                         }
                         self.coinManager.removeCoin(coin.id);
                     }
