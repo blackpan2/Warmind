@@ -92,10 +92,10 @@ function gameFunction() {
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
             four: game.input.keyboard.addKey(Phaser.Keyboard.FOUR),
             five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE)
-            // six: game.input.keyboard.addKey(Phaser.Keyboard.SIX),
-            // seven: game.input.keyboard.addKey(Phaser.Keyboard.SEVEN),
-            // eight: game.input.keyboard.addKey(Phaser.Keyboard.EIGHT),
-            // nine: game.input.keyboard.addKey(Phaser.Keyboard.NINE)
+            six: game.input.keyboard.addKey(Phaser.Keyboard.SIX),
+            seven: game.input.keyboard.addKey(Phaser.Keyboard.SEVEN),
+            eight: game.input.keyboard.addKey(Phaser.Keyboard.EIGHT),
+            nine: game.input.keyboard.addKey(Phaser.Keyboard.NINE)
         };
 
         game.load.image('background', BACKGROUND_TEXTURE);
@@ -424,22 +424,22 @@ function gameFunction() {
             playerOp.upgrade = player.availableUpgrades[4];
             didAction = true;
         } 
-            // if (keys.six.isDown && player.availableUpgrades.length >= 6) {
-            //     playerOp.upgrade = player.availableUpgrades[5];
-            //     didAction = true;
-            // } 
-            // if (keys.seven.isDown && player.availableUpgrades.length >= 7) {
-            //     playerOp.upgrade = player.availableUpgrades[6];
-            //     didAction = true;
-            // } 
-            // if (keys.eight.isDown && player.availableUpgrades.length >= 8) {
-            //     playerOp.upgrade = player.availableUpgrades[7];
-            //     didAction = true;
-            // } 
-            // if (keys.nine.isDown && player.availableUpgrades.length >= 9) {
-            //     playerOp.upgrade = player.availableUpgrades[8];
-            //     didAction = true;
-            // } 
+        if (keys.six.isDown && player.availableUpgrades.length >= 6) {
+            playerOp.upgrade = player.availableUpgrades[5];
+            didAction = true;
+        } 
+        if (keys.seven.isDown && player.availableUpgrades.length >= 7) {
+            playerOp.upgrade = player.availableUpgrades[6];
+            didAction = true;
+        } 
+        if (keys.eight.isDown && player.availableUpgrades.length >= 8) {
+            playerOp.upgrade = player.availableUpgrades[7];
+            didAction = true;
+        } 
+        if (keys.nine.isDown && player.availableUpgrades.length >= 9) {
+            playerOp.upgrade = player.availableUpgrades[8];
+            didAction = true;
+        } 
 
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
             lastActionTime = Date.now();
