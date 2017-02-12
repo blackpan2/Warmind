@@ -481,7 +481,7 @@ function gameFunction() {
                 game.debug.text('+-----------------', window.innerWidth-200, playersY, "#00FF00");
 
                 if (player.health < player.maxHealth && player.scrap > 0) {
-                    game.debug.text('Repair +1 Health: \'Q\' (1 scrap)', window.innerWidth / 2 - 110, 14, "#00FF00");
+                    game.debug.text('Repair +2 Health: \'Q\' (1 scrap)', window.innerWidth / 2 - 110, 14, "#00FF00");
                 }
                 if (player.quantumChip > 0) {
                     game.debug.text('Activate Quantum Potential (Press \'E\')', window.innerWidth / 2 - 145, 30, "#00FF00");
