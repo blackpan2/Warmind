@@ -734,10 +734,8 @@ module.exports.run = function (worker) {
             };
 
             socket.player = stateManager.create(player);
-
             respond(null, player);
         });
-
         socket.on('action', function (playerOp) {
             if (socket.player) {
                 stateManager.update(socket.player, playerOp);

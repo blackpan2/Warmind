@@ -48,51 +48,192 @@ module.exports = {
     COIN_PLAYER_NO_DROP_RADIUS: 80,
     // The probabilities need to add up to 1.
     COIN_TYPES: [
-        {
-            type: 1,
-            value: 'scrap',
-            radius: 10,
-            probability: 0.60
-        },
-        {
-            type: 2,
-            value: 'wire',
-            radius: 7,
-            probability: 0.30
-        },
-        {
-            type: 3,
-            value: 'chip',
-            radius: 10,
-            probability: 0.01
-        },
-        {
-            type: 4,
-            value: 'quantumChip',
-            radius: 8,
-            probability: 0.09
-        }
+      {
+        type: 1,
+        value: 'scrap',
+        radius: 10,
+        probability: 0.60
+      },
+      {
+        type: 2,
+        value: 'wire',
+        radius: 7,
+        probability: 0.30
+      },
+      {
+        type: 3,
+        value: 'chip',
+        radius: 10,
+        probability: 0.09
+      },
+      {
+        type: 4,
+        value: 'quantumChip',
+        radius: 8,
+        probability: 0.01
+      }
     ],
 
     // cost: [scrap, wire, chips]
     UPGRADES: [
+        // Tier 1
         {
-            id: 1,
-            desc: '+10 Max Health',
-            cost: [5, 2, 0],
-            effects: {
-                health: 10,
-                maxHealth: 10
-            }
+          id: 1,
+          desc: '+5 Max Health',
+          cost: [5, 2, 0],
+          effects: {
+            health: 5,
+            maxHealth: 5
+          }
         },
         {
-            id: 2,
-            desc: '+10 Max Health',
-            cost: [5, 3, 0],
-            effects: {
-                health: 10,
-                maxHealth: 10
-            }
+          id: 1,
+          desc: '+2 Base Damage',
+          cost: [5, 2, 0],
+          effects: {
+            attack: 2
+          }
+        },
+        // Tier 2
+        {
+          id: 2,
+          desc: '+3 Base Damage',
+          cost: [10, 5, 0],
+          effects: {
+            attack: 3
+          }
+        },
+        {
+          id: 2,
+          desc: '+2 Armor',
+          cost: [10, 5, 0],
+          effects: {
+            defense: 2
+          }
+        },
+        // Tier 3
+        {
+          id: 3,
+          desc: '+3 Armor',
+          cost: [13, 6, 1],
+          effects: {
+            defense: 3
+          }
+        },
+        {
+          id: 3,
+          desc: '+10 Max Health',
+          cost: [13, 6, 1],
+          effects: {
+            health: 10,
+            maxHealth: 10
+          }
+        },
+        // Tier 4
+        {
+          id: 4,
+          desc: '+5 Base Damage',
+          cost: [20, 10, 3],
+          effects: {
+            attack: 5
+          }
+        },
+        {
+          id: 4,
+          desc: '+10 Max Health',
+          cost: [20, 10, 3],
+          effects: {
+            health: 10,
+            maxHealth: 10
+          }
+        },
+        // Tier 5
+        {
+          id: 5,
+          desc: '+5 Armor',
+          cost: [30, 18, 10],
+          effects: {
+            defense: 5
+          }
+        },
+        {
+          id: 5,
+          desc: '+6 Base Damage',
+          cost: [30, 18, 10],
+          effects: {
+            attack: 6
+          }
+        },
+        // Tier 6
+        {
+          id: 6,
+          desc: '+15 Max Health',
+          cost: [40, 25, 15],
+          effects: {
+            health: 15,
+            maxHealth: 15
+          }
+        },
+        {
+          id: 6,
+          desc: '+6 Armor',
+          cost: [40, 25, 15],
+          effects: {
+            defense: 6
+          }
+        },
+        // Tier 7
+        {
+          id: 7,
+          desc: '+8 Base Damage',
+          cost: [0, 50, 25],
+          effects: {
+            attack: 8
+          }
+        },
+        {
+          id: 7,
+          desc: '+15 Max Health',
+          cost: [0, 50, 25],
+          effects: {
+            health: 15,
+            maxHealth: 15
+          }
+        },
+        // Tier 8
+        {
+          id: 8,
+          desc: '+8 Armor',
+          cost: [0, 50, 30],
+          effects: {
+            defense: 8
+          }
+        },
+        {
+          id: 8,
+          desc: '+20 Max Health',
+          cost: [0, 50, 30],
+          effects: {
+            health: 20,
+            maxHealth: 20
+          }
+        },
+        // Tier 9
+        {
+          id: 9,
+          desc: '+10 Base Damage',
+          cost: [75, 60, 50],
+          effects: {
+            attack: 10
+          }
+        },
+        {
+          id: 9,
+          desc: '+10 Armor',
+          cost: [75, 60, 50],
+          effects: {
+            defense: 10
+          }
         }
     ],
 
