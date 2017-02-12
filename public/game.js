@@ -473,6 +473,7 @@ function gameFunction() {
                         usersArray.push(users[i]);
                     }
                 }
+                usersArray.sort(compareKills);
                 usersArray.forEach(function (user) {
                     game.debug.text('| ' + user.name + ': ' + user.totalKills, window.innerWidth-200, playersY, "#00FF00");
                     playersY += dY;
@@ -555,4 +556,8 @@ function getUrlVars() {
         vars[key] = value;
     });
     return vars;
+}
+
+function compareKills(a, b) {
+    return a.totalKills - b.totalKills;
 }
