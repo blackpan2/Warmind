@@ -64,13 +64,13 @@ module.exports = {
       type: 3,
       value: 'chip',
       radius: 10,
-      probability: 0.09
+      probability: 0.01
     },
     {
       type: 4,
       value: 'quantumChip',
       radius: 8,
-      probability: 0.01
+      probability: 0.09
     }
   ],
 

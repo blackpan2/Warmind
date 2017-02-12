@@ -23,6 +23,13 @@ function gameFunction() {
         down: 'img/simplebot_front.gif'
     };
 
+    var quantumPotentialTextures = {
+        up: 'img/mega_tank_back.gif',
+        left: 'img/mega_tank_left.gif',
+        right: 'img/mega_tank_right.gif',
+        down: 'img/mega_tank_front.gif'
+    };
+
     var othersTextures = {
         up: 'img/simplebot_back.gif',
         left: 'img/simplebot_left.gif',
@@ -77,6 +84,8 @@ function gameFunction() {
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+            q: game.input.keyboard.addKey(Phaser.Keyboard.Q),
+            e: game.input.keyboard.addKey(Phaser.Keyboard.E),
             one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
@@ -84,12 +93,27 @@ function gameFunction() {
             five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE)
         };
 
+        prevKeyUp = {
+            q: false,
+            e: false,
+            one: false,
+            two: false,
+            three: false,
+            four: false,
+            five: false
+        }
+
         game.load.image('background', BACKGROUND_TEXTURE);
 
         game.load.image('you-up', youTextures.up);
         game.load.image('you-down', youTextures.down);
         game.load.image('you-right', youTextures.right);
         game.load.image('you-left', youTextures.left);
+
+        game.load.image('quantum-up', quantumPotentialTextures.up);
+        game.load.image('quantum-down', quantumPotentialTextures.down);
+        game.load.image('quantum-right', quantumPotentialTextures.right);
+        game.load.image('quantum-left', quantumPotentialTextures.left);
 
         game.load.image('others-up', othersTextures.up);
         game.load.image('others-down', othersTextures.down);
@@ -136,6 +160,11 @@ function gameFunction() {
     function updateUserGraphics(user) {
         user.sprite.x = user.x;
         user.sprite.y = user.y;
+        if (user.quantumPotential) {
+            user.texturePrefix = 'quantum'
+        } else {
+            user.texturePrefix = 'you'
+        }
 
         if (!user.direction) {
             user.direction = 'down';
@@ -204,10 +233,13 @@ function gameFunction() {
         }
 
         user.health = userData.health;
+        user.attack = userData.attack;
+        user.defense = userData.defense;
         user.scrap = userData.scrap;
         user.wire = userData.wire;
         user.chips = userData.chips;
         user.quantumChip = userData.quantumChip;
+        user.quantumPotential = userData.quantumPotential;
         user.availableUpgrades = userData.availableUpgrades;
         user.purchasedUpgrades = userData.purchasedUpgrades;
         user.sprite = sprite;
@@ -251,10 +283,13 @@ function gameFunction() {
         var user = users[userData.id];
         if (user) {
             user.health = userData.health;
+            user.attack = userData.attack;
+            user.defense = userData.defense;
             user.scrap = userData.scrap;
             user.wire = userData.wire;
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
+            user.quantumPotential = userData.quantumPotential;
             user.availableUpgrades = userData.availableUpgrades;
             user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
@@ -342,25 +377,57 @@ function gameFunction() {
             playerOp.l = 1;
             didAction = true;
         }
-        if (keys.one.isDown && player.availableUpgrades.length >= 1) {
+
+        if (keys.q.isDown && !prevKeyUp.q && player.scrap > 0 && player.health < player.maxHealth) {
+            prevKeyUp.q = true;
+            playerOp.repair = true;
+            didAction = true;
+        } else if (keys.q.isUp) {
+            prevKeyUp.q = false;
+        }
+
+        if (keys.e.isDown && !prevKeyUp.e && player.quantumChip > 0) {
+            prevKeyUp.e = true;
+            playerOp.quantumPotential = true;
+            didAction = true;
+        } else if (keys.e.isUp) {
+            prevKeyUp.e = false;
+        }
+
+        if (keys.one.isDown && !prevKeyUp.one && player.availableUpgrades.length >= 1) {
+            prevKeyUp.one = true;
             playerOp.upgrade = player.availableUpgrades[0];
             didAction = true;
+        } else if (keys.one.isUp) {
+            prevKeyUp.one = false;
         }
-        if (keys.two.isDown && player.availableUpgrades.length >= 2) {
+        if (keys.two.isDown && !prevKeyUp.two && player.availableUpgrades.length >= 2) {
+            prevKeyUp.two = true;
             playerOp.upgrade = player.availableUpgrades[1];
             didAction = true;
+        } else if (keys.two.isUp) {
+            prevKeyUp.two = false;
         }
-        if (keys.three.isDown && player.availableUpgrades.length >= 3) {
+        if (keys.three.isDown && !prevKeyUp.three && player.availableUpgrades.length >= 3) {
+            prevKeyUp.three = true;
             playerOp.upgrade = player.availableUpgrades[2];
             didAction = true;
+        } else if (keys.three.isUp) {
+            prevKeyUp.three = false;
         }
-        if (keys.four.isDown && player.availableUpgrades.length >= 4) {
+        if (keys.four.isDown && !prevKeyUp.four && player.availableUpgrades.length >= 4) {
+            prevKeyUp.four = true;
             playerOp.upgrade = player.availableUpgrades[3];
             didAction = true;
+        } else if (keys.four.isUp) {
+            prevKeyUp.four = false;
         }
-        if (keys.five.isDown && player.availableUpgrades.length >= 5) {
+        if (keys.five.isDown && !prevKeyUp.five && player.availableUpgrades.length >= 5) {
+            prevKeyUp.five = true;
             playerOp.upgrade = player.availableUpgrades[4];
             didAction = true;
+        } else if (keys.five.isUp) {
+            prevKeyUp.five = false;
         }
 
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
@@ -376,6 +443,12 @@ function gameFunction() {
         dY = 16;
         if (ENVIRONMENT == 'dev') {
             if (player) {
+                if (player.health < player.maxHealth) {
+                    game.debug.text('Repair: \'Q\' (1 scrap)', window.innerWidth/2-70, 14, "#00FF00");
+                }
+                if (player.quantumChip > 0) {
+                    game.debug.text('Activate Quantum Potential (Press \'E\')', window.innerWidth/2-125, 30, "#00FF00");
+                }
                 game.debug.text('Health: ' + player.health, 2, currY, "#00FF00");
                 currY += dY;
                 game.debug.text('Scrap: ' + player.scrap, 2, currY, "#00FF00");
@@ -384,12 +457,8 @@ function gameFunction() {
                 currY += dY;
                 game.debug.text('Chips: ' + player.chips, 2, currY, "#00FF00");
                 currY += dY;
-                game.debug.text('Purchased Upgrades: ' + player.purchasedUpgrades.toString(), 2, currY, "#00FF00");
-                currY += dY;
-                if (player.quantumChip > 0) {
-                    game.debug.text('Quantum Upgrade Available!', 2, currY, "#00FF00");
-                    currY += dY;
-                }
+                // game.debug.text('Purchased Upgrades: ' + player.purchasedUpgrades.toString(), 2, currY, "#00FF00");
+                // currY += dY;
                 if (player.availableUpgrades.length > 0) {
                     game.debug.text('Upgrades:', 2, currY+dY, "#00FF00");
                     currY += dY*2;
