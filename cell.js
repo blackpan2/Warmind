@@ -425,9 +425,9 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
     player.health -= Math.max(5, otherPlayerAttack - player.defense);
     otherPlayer.health -= Math.max(5, playerAttack - otherPlayer.defense);
 
-    if (otherPlayer.health <= 0){
+    if (otherPlayer.health <= 0 && !otherPlayer.dead){
         player.totalKills += 1;
-    } else if (player.health <= 0) {
+    } else if (player.health <= 0 && !player.dead) {
         otherPlayer.totalKills += 1;
     }
 

@@ -453,6 +453,7 @@ function gameFunction() {
             player.dead = true;
             window.location.replace('postgame.html?u=' + player.name +'&?s=' + player.totalScrap + '&?w='
                 + player.totalWire +'&?c=' +player.totalChips);
+            removeUser(player);
         }
     }
 
