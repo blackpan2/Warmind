@@ -91,7 +91,7 @@ function gameFunction() {
             two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
             four: game.input.keyboard.addKey(Phaser.Keyboard.FOUR),
-            five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE)
+            five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE),
             six: game.input.keyboard.addKey(Phaser.Keyboard.SIX),
             seven: game.input.keyboard.addKey(Phaser.Keyboard.SEVEN),
             eight: game.input.keyboard.addKey(Phaser.Keyboard.EIGHT),
