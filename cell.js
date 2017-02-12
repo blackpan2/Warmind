@@ -204,7 +204,11 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
 
     var playerOp = player.op;
     var moveSpeed;
-    moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED;
+    if (player.quantumPotential) {
+      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 2
+    } else {
+      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);      
+    }
 
     if (playerOp) {
       var movementVector = {x: 0, y: 0};
@@ -238,6 +242,19 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
       //    player.weapon.fire();
       //  }
       //}
+
+      if (playerOp.repair && player.scrap > 0) {
+        player.scrap -= 1;
+        player.health += 1;
+      }
+
+      if (playerOp.quantumPotential && player.quantumChip > 0) {
+        player.quantumChip = 0;
+        player.quantumPotential = true;
+        // setTimeout(function(){
+        //   this.disableQuantumPotential(player);
+        // }, 3000);
+      }
 
       if (playerOp.upgrade && player.purchasedUpgrades.indexOf(playerOp.upgrade.id) < 0) {
         player.purchasedUpgrades.push(playerOp.upgrade.id);
@@ -306,6 +323,10 @@ CellController.prototype.updateAvailableUpgrades = function (player) {
     }
   });
 };
+
+CellController.prototype.disableQuantumPotential = function (player) {
+  player.quantumPotential = false;
+}
 
 CellController.prototype.findPlayerOverlaps = function (playerIds, players, coins) {
   var self = this;

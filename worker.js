@@ -716,15 +716,20 @@ module.exports.run = function (worker) {
         y: startingPos.y,
         diam: PLAYER_DIAMETER,
         mass: PLAYER_MASS,
+
+        availableUpgrades: [],
+        purchasedUpgrades: [],
+
+        quantumPotential: false,
         maxHealth: 100,
         health: 100,
-        scrap: 3,
-        wire: 2,
+        attack: 18,
+        defense: 0,
+
+        scrap: 5,
+        wire: 3,
         chips: 10,
-        quantumChip: 0,
-        weapon: null,
-        availableUpgrades: [],
-        purchasedUpgrades: []
+        quantumChip: 0
       };
 
       socket.player = stateManager.create(player);
