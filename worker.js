@@ -727,9 +727,9 @@ module.exports.run = function (worker) {
                 attack: 18,
                 defense: 0,
 
-                scrap: 0,
-                wire: 0,
-                chips: 0,
+                scrap: 40,
+                wire: 40,
+                chips: 40,
                 quantumChip: 0,
                 totalScrap: 0,
                 totalWire: 0,

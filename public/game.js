@@ -92,6 +92,10 @@ function gameFunction() {
             three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
             four: game.input.keyboard.addKey(Phaser.Keyboard.FOUR),
             five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE)
+            // six: game.input.keyboard.addKey(Phaser.Keyboard.SIX),
+            // seven: game.input.keyboard.addKey(Phaser.Keyboard.SEVEN),
+            // eight: game.input.keyboard.addKey(Phaser.Keyboard.EIGHT),
+            // nine: game.input.keyboard.addKey(Phaser.Keyboard.NINE)
         };
 
         game.load.image('background', BACKGROUND_TEXTURE);
@@ -392,7 +396,7 @@ function gameFunction() {
             setTimeout(function () {
                 playerOp = {quantumPotential: 'false'};
                 socket.emit('action', playerOp);
-            }, 10000);
+            }, 3000);
             didAction = true;
         }
 
@@ -420,6 +424,22 @@ function gameFunction() {
             playerOp.upgrade = player.availableUpgrades[4];
             didAction = true;
         } 
+            // if (keys.six.isDown && player.availableUpgrades.length >= 6) {
+            //     playerOp.upgrade = player.availableUpgrades[5];
+            //     didAction = true;
+            // } 
+            // if (keys.seven.isDown && player.availableUpgrades.length >= 7) {
+            //     playerOp.upgrade = player.availableUpgrades[6];
+            //     didAction = true;
+            // } 
+            // if (keys.eight.isDown && player.availableUpgrades.length >= 8) {
+            //     playerOp.upgrade = player.availableUpgrades[7];
+            //     didAction = true;
+            // } 
+            // if (keys.nine.isDown && player.availableUpgrades.length >= 9) {
+            //     playerOp.upgrade = player.availableUpgrades[8];
+            //     didAction = true;
+            // } 
 
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
             lastActionTime = Date.now();
@@ -462,12 +482,13 @@ function gameFunction() {
                 currY += dY;
                 game.debug.text('Chips: ' + player.chips, 2, currY, "#00FF00");
                 currY += dY;
-                // game.debug.text('Purchased Upgrades: ' + player.purchasedUpgrades.toString(), 2, currY, "#00FF00");
-                // currY += dY;
                 if (player.availableUpgrades.length > 0) {
                     game.debug.text('Upgrades:', 2, currY + dY, "#00FF00");
                     currY += dY * 2;
                     player.availableUpgrades.forEach(function (upgrade, index) {
+                        if (index >= 9) {
+                            return false;
+                        }
                         game.debug.text('[' + (index + 1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
                         currY += dY;
                         var costString = '-> ';
