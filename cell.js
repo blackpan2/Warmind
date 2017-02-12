@@ -424,6 +424,13 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
     }
     player.health -= Math.max(5, otherPlayerAttack - player.defense);
     otherPlayer.health -= Math.max(5, playerAttack - otherPlayer.defense);
+
+    if (otherPlayer.health <= 0){
+        player.totalKills += 1;
+    } else if (player.health <= 0) {
+        otherPlayer.totalKills += 1;
+    }
+
     var olv = result.overlapV;
 
     var totalMass = player.mass + otherPlayer.mass;

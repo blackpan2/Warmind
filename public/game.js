@@ -227,6 +227,7 @@ function gameFunction() {
             user.texturePrefix = 'others';
         }
 
+        user.totalKills = userData.totalKills;
         user.maxHealth = userData.maxHealth;
         user.health = userData.health;
         user.attack = userData.attack;
@@ -284,6 +285,7 @@ function gameFunction() {
         var user = users[userData.id];
         if (user) {
             user.maxHealth = userData.maxHealth;
+            user.totalKills = userData.totalKills;
             user.health = userData.health;
             user.attack = userData.attack;
             user.defense = userData.defense;
@@ -461,8 +463,10 @@ function gameFunction() {
         dY = 16;
         if (ENVIRONMENT == 'dev') {
             if (player) {
-                game.debug.text('Players:', window.innerWidth-200, playersY, "#00FF00");
-                playersY += dY*2;
+                game.debug.text('| Kill Scoreboard:', window.innerWidth-200, playersY, "#00FF00");
+                playersY += dY;
+                game.debug.text('+-----------------', window.innerWidth-200, playersY, "#00FF00");
+                playersY += dY;
                 var usersArray = [];
                 for (var i in users) {
                     if (users.hasOwnProperty(i)) {
@@ -470,9 +474,11 @@ function gameFunction() {
                     }
                 }
                 usersArray.forEach(function (user) {
-                    game.debug.text(user.name, window.innerWidth-200, playersY, "#00FF00");
+                    game.debug.text('| ' + user.name + ': ' + user.totalKills, window.innerWidth-200, playersY, "#00FF00");
                     playersY += dY;
                 });
+                game.debug.text('+-----------------', window.innerWidth-200, playersY, "#00FF00");
+
                 if (player.health < player.maxHealth && player.scrap > 0) {
                     game.debug.text('Repair +1 Health: \'Q\' (1 scrap)', window.innerWidth / 2 - 110, 14, "#00FF00");
                 }
@@ -488,6 +494,8 @@ function gameFunction() {
                 game.debug.text('Attack: ' + playerAttack, 2, currY, "#00FF00");
                 currY += dY;
                 game.debug.text('Armor: ' + player.defense, 2, currY, "#00FF00");
+                currY += dY;
+                game.debug.text('Kills: ' + player.totalKills, 2, currY, "#00FF00");
                 currY += dY;
                 game.debug.text('Scrap: ' + player.scrap, 2, currY+dY, "#00FF00");
                 currY += dY*2;
