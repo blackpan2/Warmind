@@ -130,6 +130,8 @@
           game.load.image('resource-2', resourceTextures[2]);
           game.load.image('resource-3', resourceTextures[3]);
           game.load.image('resource-4', resourceTextures[4]);
+
+          game.load.image('scrap-icon', 'img/scrap_metal_icon.gif');
         }
 
         function handleCellData(stateList) {
@@ -317,6 +319,9 @@
           background = game.add.tileSprite(0, 0, WORLD_WIDTH, WORLD_HEIGHT, 'background');
           game.time.advancedTiming = true;
           game.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+          scrap_icon = createTexturedSprite({
+            texture: 'scrap-icon'
+          });
 
           // Generate a random name for the user.
           var playerName = 'user-' + Math.round(Math.random() * 10000);
@@ -392,8 +397,17 @@
                 game.debug.text('Quantum Upgrade Available!', 2, currY, "#00FF00");
                 currY += dY;
               }
-              game.debug.text('Upgrades: ' + player.availableUpgrades.toString(), 2, currY, "#00FF00");
-              currY += dY;
+              if (player.availableUpgrades.length > 0) {
+                game.debug.text('Upgrades:', 2, currY+dY, "#00FF00");
+                currY += dY*2;
+                player.availableUpgrades.forEach(function (upgrade, index) {
+                  game.debug.text(upgrade.cost.toString(), 6, currY, "#00FF00");
+                  currY += dY;
+                  // game.debug.spriteInfo('scrap_icon', 100, 100);
+                  game.debug.text('[' + (index+1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
+                  currY += dY;
+                });
+              }
             }
           }
 

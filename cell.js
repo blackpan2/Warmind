@@ -279,7 +279,7 @@ CellController.prototype.checkForAvailableUpgrades = function (player) {
   player.availableUpgrades = []
   config.UPGRADES.forEach(function (upgrade) {
     if (player.scrap >= upgrade.cost[0] && player.wire >= upgrade.cost[1] && player.chips >= upgrade.cost[2]){
-      player.availableUpgrades.push(upgrade.desc);
+      player.availableUpgrades.push(upgrade);
     }
   });
 };
