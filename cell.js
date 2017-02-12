@@ -205,7 +205,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     var playerOp = player.op;
     var moveSpeed;
     if (player.quantumPotential) {
-      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED*2
+      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 2
     } else {
       moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);      
     }
@@ -235,6 +235,12 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         player.direction = 'left';
         movedHorizontally = true;
       }
+      if (playerOp.spacebar_pressed) {
+        //console.log(player.weapon);
+        if (player.weapon){
+          player.weapon.fire();
+        }
+      }
 
       if (playerOp.repair && player.scrap > 0) {
         player.scrap -= 1;
@@ -244,6 +250,9 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
       if (playerOp.quantumPotential && player.quantumChip > 0) {
         player.quantumChip = 0;
         player.quantumPotential = true;
+        // setTimeout(function(){
+        //   this.disableQuantumPotential(player);
+        // }, 3000);
       }
 
       if (playerOp.upgrade && player.purchasedUpgrades.indexOf(playerOp.upgrade.id) < 0) {
@@ -274,6 +283,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
       player.playerOverlaps.forEach(function (otherPlayer) {
         self.resolvePlayerCollision(player, otherPlayer);
         self.keepPlayerOnGrid(otherPlayer);
+
       });
       delete player.playerOverlaps;
     }
@@ -312,6 +322,10 @@ CellController.prototype.updateAvailableUpgrades = function (player) {
     }
   });
 };
+
+CellController.prototype.disableQuantumPotential = function (player) {
+  player.quantumPotential = false;
+}
 
 CellController.prototype.findPlayerOverlaps = function (playerIds, players, coins) {
   var self = this;
@@ -395,6 +409,8 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
   var result = this.testCircleCollision(player, otherPlayer);
 
   if (result.collided) {
+    // player.health -= 10;
+    // otherPlayer.health -= 10;
     var olv = result.overlapV;
 
     var totalMass = player.mass + otherPlayer.mass;

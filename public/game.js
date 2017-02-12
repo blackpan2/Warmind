@@ -42,7 +42,8 @@ function gameFunction() {
         1: 'img/scrap_metal.gif',
         2: 'img/wire.png',
         3: 'img/chip.gif',
-        4: 'img/quantum_chip.gif'
+        4: 'img/quantum_chip.gif',
+        5: 'img/bullet1.gif'
     }
 
     // 1 means no smoothing. 0.1 is quite smooth.
@@ -79,7 +80,7 @@ function gameFunction() {
 
     function preload() {
         keys = {
-            //Todo add more functionality
+            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
             up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
@@ -124,6 +125,7 @@ function gameFunction() {
         game.load.image('resource-2', resourceTextures[2]);
         game.load.image('resource-3', resourceTextures[3]);
         game.load.image('resource-4', resourceTextures[4]);
+        game.load.image('bullet1', resourceTextures[5]);
 
         game.load.image('scrap-icon', 'img/scrap_metal_icon.gif');
     }
@@ -248,6 +250,18 @@ function gameFunction() {
         user.sprite.height = userData.diam;
         user.diam = user.sprite.width;
 
+        user.weapon = game.add.weapon(30, 'bullet1');
+        console.log(user.weapon);
+        console.log('poop');
+        user.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+        //  The speed at which the bullet is fired
+        user.weapon.bulletSpeed = 400;
+        //  Speed-up the rate of fire, allowing them to shoot 1 bullet every 200ms
+        user.weapon.fireRate = 200;
+        //  Add a variance to the bullet speed by +- this value
+        user.weapon.bulletSpeedVariance = 200;
+        user.weapon.trackSprite(sprite, 14, 0);
+
         moveUser(userData.id, userData.x, userData.y);
 
         if (userData.id == playerId) {
@@ -293,6 +307,7 @@ function gameFunction() {
             user.availableUpgrades = userData.availableUpgrades;
             user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
+            user.weapon = userData.weapon;
             moveUser(userData.id, userData.x, userData.y);
         } else {
             createUserSprite(userData);
@@ -394,8 +409,12 @@ function gameFunction() {
             prevKeyUp.e = false;
         }
 
-        if (keys.one.isDown && !prevKeyUp.one && player.availableUpgrades.length >= 1) {
-            prevKeyUp.one = true;
+        if (keys.spacebar.isDown) {
+            playerOp.spacebar_pressed = 1;
+            didAction = true;
+        }
+
+        if (keys.one.isDown && player.availableUpgrades.length >= 1) {
             playerOp.upgrade = player.availableUpgrades[0];
             didAction = true;
         } else if (keys.one.isUp) {
@@ -429,7 +448,6 @@ function gameFunction() {
         } else if (keys.five.isUp) {
             prevKeyUp.five = false;
         }
-
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
             lastActionTime = Date.now();
             // Send the player operations for the server to process.
