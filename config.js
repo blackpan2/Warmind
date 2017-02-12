@@ -43,9 +43,9 @@ module.exports = {
     PLAYER_MASS: 20,
 
     COIN_UPDATE_INTERVAL: 1000,
-    COIN_DROP_INTERVAL: 400,
+    COIN_DROP_INTERVAL: 100,
     COIN_MAX_COUNT: 200,
-    COIN_PLAYER_NO_DROP_RADIUS: 80,
+    COIN_PLAYER_NO_DROP_RADIUS: 60,
     // The probabilities need to add up to 1.
     COIN_TYPES: [
       {
