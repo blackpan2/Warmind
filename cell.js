@@ -235,12 +235,13 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         player.direction = 'left';
         movedHorizontally = true;
       }
-      if (playerOp.spacebar_pressed) {
-        //console.log(player.weapon);
-        if (player.weapon){
-          player.weapon.fire();
-        }
-      }
+      //if (playerOp.spacebar_pressed) {
+      //  console.log(player.myval);
+      //  //console.log(player.weapon);
+      //  if (player.weapon){
+      //    player.weapon.fire();
+      //  }
+      //}
 
       if (playerOp.repair && player.scrap > 0) {
         player.scrap -= 1;
