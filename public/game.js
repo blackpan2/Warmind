@@ -446,7 +446,8 @@ function gameFunction() {
 
         if(player && player.dead & player.health <= 0) {
             window.location.assign('postgame.html?u=' + player.name +'&?s=' + player.totalScrap + '&?w='
-                + player.totalWire +'&?c=' + player.totalChips + '&?k=' + player.totalKills);
+                + player.totalWire +'&?c=' + player.totalChips + '&?k=' + player.totalKills
+                + '&?q=' + player.totalQuantumChips);
             removeUser(player);
             player.dead = false;
         }
