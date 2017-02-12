@@ -415,10 +415,9 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
 
     if (otherPlayer.health <= 0 && !otherPlayer.dead){
         player.totalKills += 1;
+        otherPlayer.dead = true;
         otherPlayer.x = 0
         otherPlayer.y = 0
-    } else if (player.health <= 0 && !player.dead) {
-        otherPlayer.totalKills += 1;
     }
 
     var olv = result.overlapV;
