@@ -240,10 +240,10 @@ function gameFunction() {
         user.scrap = userData.scrap;
         user.wire = userData.wire;
         user.chips = userData.chips;
-        user.totalScrap = userData.scrap;
-        user.totalWire = userData.wire;
-        user.totalChips = userData.chips;
-        user.totalQuantumChips;
+        user.totalScrap = userData.totalScrap;
+        user.totalWire = userData.totalWire;
+        user.totalChips = userData.totalChips;
+        user.totalQuantumChips = userData.totalQuantumChips;
         user.quantumChip = userData.quantumChip;
         user.quantumPotential = userData.quantumPotential;
         user.dead = userData.dead;
@@ -297,6 +297,10 @@ function gameFunction() {
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
             user.quantumPotential = userData.quantumPotential;
+            user.totalScrap = userData.totalScrap;
+            user.totalWire = userData.totalWire;
+            user.totalChips = userData.totalChips;
+            user.totalQuantumChips = userData.totalQuantumChips;
             user.dead = userData.dead;
             user.availableUpgrades = userData.availableUpgrades;
             user.purchasedUpgrades = userData.purchasedUpgrades;
@@ -452,7 +456,8 @@ function gameFunction() {
         if(player && player.dead == false && player.health <= 0) {
             console.log(player);
             player.dead = true;
-            window.location.replace('postgame.html?u=' + player.name);
+            window.location.replace('postgame.html?u=' + player.name +'&?s=' + player.totalScrap + '&?w='
+                + player.totalWire +'&?c=' +player.totalChips);
         }
 
     }
