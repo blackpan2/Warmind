@@ -723,7 +723,7 @@ module.exports.run = function (worker) {
                 quantumPotential: false,
                 quantumPotentialTimeout: false,
                 maxHealth: 100,
-                health: 100,
+                health: 50,
                 attack: 18,
                 defense: 0,
 

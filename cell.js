@@ -204,7 +204,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         var playerOp = player.op;
         var moveSpeed;
         if (player.quantumPotential) {
-          moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 1.3
+          moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 1.5
         } else {
           moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);      
         }
@@ -409,8 +409,16 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
     //console.log(player);
     //console.log("\notherPlayer:")
     //console.log(otherPlayer);
-    player.health -= Math.min(5, otherPlayer.attack - player.defense);
-    otherPlayer.health -= Math.min(5, player.attack - otherPlayer.defense);
+    var playerAttack = player.attack;
+    var otherPlayerAttack = otherPlayer.attack;
+    if (player.quantumPotential) {
+      playerAttack += 10;
+    }
+    if (otherPlayer.quantumPotential) {
+      otherPlayerAttack += 10;
+    }
+    player.health -= Math.max(5, otherPlayerAttack - player.defense);
+    otherPlayer.health -= Math.min(5, playerAttack - otherPlayer.defense);
     var olv = result.overlapV;
 
     var totalMass = player.mass + otherPlayer.mass;
