@@ -247,13 +247,14 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         player.health += 1;
       }
 
-      if (playerOp.quantumPotential && player.quantumChip > 0) {
+      if (playerOp.quantumPotential == 'true') {
         player.quantumChip = 0;
         player.quantumPotential = true;
-        // setTimeout(function(){
-        //   this.disableQuantumPotential(player);
-        // }, 3000);
+      } else if (playerOp.quantumPotential == 'false') {
+        player.quantumPotential = false;
       }
+
+
 
       if (playerOp.upgrade && player.purchasedUpgrades.indexOf(playerOp.upgrade.id) < 0) {
         player.purchasedUpgrades.push(playerOp.upgrade.id);
@@ -291,7 +292,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     if (player.coinOverlaps) {
       player.coinOverlaps.forEach(function (coin) {
         if (self.testCircleCollision(player, coin).collided) {
-          if (coin.v == 'quantumChip' && player.quantumChip == 0) {
+          if (coin.v == 'quantumChip' && player.quantumChip == 0 && !player.quantumPotential) {
             player.quantumChip += 1;
             self.coinManager.removeCoin(coin.id);
           } else if (coin.v != 'quantumChip') {
@@ -322,10 +323,6 @@ CellController.prototype.updateAvailableUpgrades = function (player) {
     }
   });
 };
-
-CellController.prototype.disableQuantumPotential = function (player) {
-  player.quantumPotential = false;
-}
 
 CellController.prototype.findPlayerOverlaps = function (playerIds, players, coins) {
   var self = this;

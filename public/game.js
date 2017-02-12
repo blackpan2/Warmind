@@ -95,6 +95,7 @@ function gameFunction() {
         };
 
         prevKeyUp = {
+            spacebar: false,
             q: false,
             e: false,
             one: false,
@@ -242,6 +243,7 @@ function gameFunction() {
         user.chips = userData.chips;
         user.quantumChip = userData.quantumChip;
         user.quantumPotential = userData.quantumPotential;
+        user.quantumPotentialTimeout = userData.quantumPotentialTimeout;
         user.availableUpgrades = userData.availableUpgrades;
         user.purchasedUpgrades = userData.purchasedUpgrades;
         user.sprite = sprite;
@@ -304,6 +306,7 @@ function gameFunction() {
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
             user.quantumPotential = userData.quantumPotential;
+            user.quantumPotentialTimeout = userData.quantumPotentialTimeout;
             user.availableUpgrades = userData.availableUpgrades;
             user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
@@ -401,17 +404,20 @@ function gameFunction() {
             prevKeyUp.q = false;
         }
 
-        if (keys.e.isDown && !prevKeyUp.e && player.quantumChip > 0) {
-            prevKeyUp.e = true;
-            playerOp.quantumPotential = true;
+        if (keys.e.isDown && player.quantumChip > 0) {
+            playerOp.quantumPotential = 'true';
+            setTimeout(function(){
+                playerOp = {quantumPotential: 'false'};
+                socket.emit('action', playerOp);
+            }, 3000);
             didAction = true;
-        } else if (keys.e.isUp) {
-            prevKeyUp.e = false;
         }
 
         if (keys.spacebar.isDown) {
             playerOp.spacebar_pressed = 1;
             didAction = true;
+        } else if (keys.spacebar.isUp) {
+            prevKeyUp.spacebar = false;
         }
 
         if (keys.one.isDown && player.availableUpgrades.length >= 1) {
