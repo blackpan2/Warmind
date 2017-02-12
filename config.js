@@ -68,9 +68,21 @@ module.exports = {
     },
     {
       type: 4,
-      value: 'quantum_chip',
+      value: 'quantumChip',
       radius: 8,
       probability: 0.01
+    }
+  ],
+
+  // cost: [scrap, wire, chips]
+  UPGRADES: [
+    {
+      desc: '+Max Health',
+      cost: [5, 2, 0],
+      effects: {
+        health: 10,
+        maxHealth: 10
+      }
     }
   ],
 

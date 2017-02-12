@@ -252,10 +252,10 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     if (player.coinOverlaps) {
       player.coinOverlaps.forEach(function (coin) {
         if (self.testCircleCollision(player, coin).collided) {
-          if (coin.v == 'quantum_chip' && player.quantum_chip == 0) {
-            player.quantum_chip += 1;
+          if (coin.v == 'quantumChip' && player.quantumChip == 0) {
+            player.quantumChip += 1;
             self.coinManager.removeCoin(coin.id);
-          } else if (coin.v != 'quantum_chip') {
+          } else if (coin.v != 'quantumChip') {
             if (coin.v == 'scrap') {
               player.scrap += 1;
             } else if (coin.v == 'wire') {
@@ -265,12 +265,22 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
             }
             self.coinManager.removeCoin(coin.id);
           }
+          self.checkForAvailableUpgrades(player);
         }
       });
       delete player.coinOverlaps;
     }
 
     self.keepPlayerOnGrid(player);
+  });
+};
+
+CellController.prototype.checkForAvailableUpgrades = function (player) {
+  player.availableUpgrades = []
+  config.UPGRADES.forEach(function (upgrade) {
+    if (player.scrap >= upgrade.cost[0] && player.wire >= upgrade.cost[1] && player.chips >= upgrade.cost[2]){
+      player.availableUpgrades.push(upgrade.desc);
+    }
   });
 };
 

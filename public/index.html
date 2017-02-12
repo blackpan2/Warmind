@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello Phaser!</title>
+    <title>Warmind</title>
     <link rel="icon" type="image/png" href="/favicon.ico">
     <script type="text/javascript" src="/socketcluster.js"></script>
     <script src="/sc-codec-min-bin.js"></script>
@@ -69,14 +69,14 @@
         // Mapping of different resources that can spawn
         var resourceTextures = {
           1: 'img/scrap_metal.gif',
-          2: 'img/wire.gif',
+          2: 'img/wire.png',
           3: 'img/chip.gif',
           4: 'img/quantum_chip.gif'
         }
 
         // 1 means no smoothing. 0.1 is quite smooth.
         var CAMERA_SMOOTHING = 1;
-        var BACKGROUND_TEXTURE = 'img/background-texture.png';
+        var BACKGROUND_TEXTURE = 'img/factory_floor_tile.gif';
 
         socket.emit('getWorldInfo', null, function (err, data) {
           WORLD_WIDTH = data.width;
@@ -235,7 +235,8 @@
           user.scrap = userData.scrap;
           user.wire = userData.wire;
           user.chips = userData.chips;
-          user.quantum_chip = userData.quantum_chip;
+          user.quantumChip = userData.quantumChip;
+          user.availableUpgrades = userData.availableUpgrades;
           user.sprite = sprite;
 
           user.sprite.width = Math.round(userData.diam * 0.73);
@@ -280,7 +281,8 @@
             user.scrap = userData.scrap;
             user.wire = userData.wire;
             user.chips = userData.chips;
-            user.quantum_chip = userData.quantum_chip;
+            user.quantumChip = userData.quantumChip;
+            user.availableUpgrades = userData.availableUpgrades;
             user.direction = userData.direction;
             moveUser(userData.id, userData.x, userData.y);
           } else {
@@ -374,16 +376,24 @@
 
         function render() {
           var now = Date.now();
-
+          currY = 14;
+          dY = 16;
           if (ENVIRONMENT == 'dev') {
             if (player) {
-              game.debug.text('Health: ' + player.health, 2, 14, "#00FF00");
-              game.debug.text('Scrap: ' + player.scrap, 2, 30, "#00FF00");
-              game.debug.text('Wire: ' + player.wire, 2, 46, "#00FF00");
-              game.debug.text('Chips: ' + player.chips, 2, 62, "#00FF00");
-              if (player.quantum_chip > 0) {
-                game.debug.text('Quantum Upgrade Available!', 2, 78, "#00FF00");
+              game.debug.text('Health: ' + player.health, 2, currY, "#00FF00");
+              currY += dY;
+              game.debug.text('Scrap: ' + player.scrap, 2, currY, "#00FF00");
+              currY += dY;
+              game.debug.text('Wire: ' + player.wire, 2, currY, "#00FF00");
+              currY += dY;
+              game.debug.text('Chips: ' + player.chips, 2, currY, "#00FF00");
+              currY += dY;
+              if (player.quantumChip > 0) {
+                game.debug.text('Quantum Upgrade Available!', 2, currY, "#00FF00");
+                currY += dY;
               }
+              game.debug.text('Upgrades: ' + player.availableUpgrades.toString(), 2, currY, "#00FF00");
+              currY += dY;
             }
           }
 
