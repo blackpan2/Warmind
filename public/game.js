@@ -73,11 +73,17 @@ function gameFunction() {
 
     function preload() {
         keys = {
+            //Todo add more functionality
             up: game.input.keyboard.addKey(Phaser.Keyboard.UP),
             down: game.input.keyboard.addKey(Phaser.Keyboard.DOWN),
             right: game.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
             left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),
-            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+            spacebar: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+            one: game.input.keyboard.addKey(Phaser.Keyboard.ONE),
+            two: game.input.keyboard.addKey(Phaser.Keyboard.TWO),
+            three: game.input.keyboard.addKey(Phaser.Keyboard.THREE),
+            four: game.input.keyboard.addKey(Phaser.Keyboard.FOUR),
+            five: game.input.keyboard.addKey(Phaser.Keyboard.FIVE)
         };
 
         game.load.image('background', BACKGROUND_TEXTURE);
@@ -206,6 +212,7 @@ function gameFunction() {
         user.chips = userData.chips;
         user.quantumChip = userData.quantumChip;
         user.availableUpgrades = userData.availableUpgrades;
+        user.purchasedUpgrades = userData.purchasedUpgrades;
         user.sprite = sprite;
 
         user.sprite.width = Math.round(userData.diam * 0.73);
@@ -264,6 +271,7 @@ function gameFunction() {
             user.chips = userData.chips;
             user.quantumChip = userData.quantumChip;
             user.availableUpgrades = userData.availableUpgrades;
+            user.purchasedUpgrades = userData.purchasedUpgrades;
             user.direction = userData.direction;
             user.weapon = userData.weapon;
             moveUser(userData.id, userData.x, userData.y);
@@ -299,12 +307,10 @@ function gameFunction() {
         background = game.add.tileSprite(0, 0, WORLD_WIDTH, WORLD_HEIGHT, 'background');
         game.time.advancedTiming = true;
         game.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-        scrap_icon = createTexturedSprite({
-            texture: 'scrap-icon'
-        });
 
         // Generate a random name for the user.
-        var playerName = 'user-' + Math.round(Math.random() * 10000);
+        // var playerName = 'user-' + Math.round(Math.random() * 10000);
+        var playerName = getUrlVars()["u"];
 
         function joinWorld() {
             socket.emit('join', {
@@ -356,6 +362,26 @@ function gameFunction() {
             playerOp.spacebar_pressed = 1;
             didAction = true;
         }
+        if (keys.one.isDown && player.availableUpgrades.length >= 1) {
+            playerOp.upgrade = player.availableUpgrades[0];
+            didAction = true;
+        }
+        if (keys.two.isDown && player.availableUpgrades.length >= 2) {
+            playerOp.upgrade = player.availableUpgrades[1];
+            didAction = true;
+        }
+        if (keys.three.isDown && player.availableUpgrades.length >= 3) {
+            playerOp.upgrade = player.availableUpgrades[2];
+            didAction = true;
+        }
+        if (keys.four.isDown && player.availableUpgrades.length >= 4) {
+            playerOp.upgrade = player.availableUpgrades[3];
+            didAction = true;
+        }
+        if (keys.five.isDown && player.availableUpgrades.length >= 5) {
+            playerOp.upgrade = player.availableUpgrades[4];
+            didAction = true;
+        }
         if (didAction && Date.now() - lastActionTime >= USER_INPUT_INTERVAL) {
             lastActionTime = Date.now();
             // Send the player operations for the server to process.
@@ -377,6 +403,8 @@ function gameFunction() {
                 currY += dY;
                 game.debug.text('Chips: ' + player.chips, 2, currY, "#00FF00");
                 currY += dY;
+                game.debug.text('Purchased Upgrades: ' + player.purchasedUpgrades.toString(), 2, currY, "#00FF00");
+                currY += dY;
                 if (player.quantumChip > 0) {
                     game.debug.text('Quantum Upgrade Available!', 2, currY, "#00FF00");
                     currY += dY;
@@ -385,10 +413,19 @@ function gameFunction() {
                     game.debug.text('Upgrades:', 2, currY+dY, "#00FF00");
                     currY += dY*2;
                     player.availableUpgrades.forEach(function (upgrade, index) {
-                        game.debug.text(upgrade.cost.toString(), 6, currY, "#00FF00");
-                        currY += dY;
-                        // game.debug.spriteInfo('scrap_icon', 100, 100);
                         game.debug.text('[' + (index+1) + '] ' + upgrade.desc, 2, currY, "#00FF00");
+                        currY += dY;
+                        var costString = '-> ';
+                        if (upgrade.cost[0] > 0) {
+                            costString += upgrade.cost[0] + ' Scrap '
+                        }
+                        if (upgrade.cost[1] > 0) {
+                            costString += upgrade.cost[1] + ' Wire '
+                        }
+                        if (upgrade.cost[2] > 0) {
+                            costString += upgrade.cost[2] + ' Chips'
+                        }
+                        game.debug.text(costString, 15, currY, "#00FF00");
                         currY += dY;
                     });
                 }
@@ -414,3 +451,12 @@ function gameFunction() {
         }
     }
 };
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}

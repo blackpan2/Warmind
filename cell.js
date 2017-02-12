@@ -238,6 +238,21 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
         }
       }
 
+      if (playerOp.upgrade && player.purchasedUpgrades.indexOf(playerOp.upgrade.id) < 0) {
+        player.purchasedUpgrades.push(playerOp.upgrade.id);
+        player.scrap -= playerOp.upgrade.cost[0];
+        player.wire -= playerOp.upgrade.cost[1];
+        player.chips -= playerOp.upgrade.cost[2];
+        self.updateAvailableUpgrades(player);
+
+        Object.keys(playerOp.upgrade.effects).forEach(function (key) {
+          var value = playerOp.upgrade.effects[key];
+          console.log(key + " -> " + value);
+          player[key] += value;
+        })
+
+      }
+
       if (movedHorizontally && movedVertically) {
         movementVector.x *= self.diagonalSpeedFactor;
         movementVector.y *= self.diagonalSpeedFactor;
@@ -271,7 +286,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
             }
             self.coinManager.removeCoin(coin.id);
           }
-          self.checkForAvailableUpgrades(player);
+          self.updateAvailableUpgrades(player);
         }
       });
       delete player.coinOverlaps;
@@ -281,10 +296,10 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
   });
 };
 
-CellController.prototype.checkForAvailableUpgrades = function (player) {
+CellController.prototype.updateAvailableUpgrades = function (player) {
   player.availableUpgrades = []
   config.UPGRADES.forEach(function (upgrade) {
-    if (player.scrap >= upgrade.cost[0] && player.wire >= upgrade.cost[1] && player.chips >= upgrade.cost[2]){
+    if (player.scrap >= upgrade.cost[0] && player.wire >= upgrade.cost[1] && player.chips >= upgrade.cost[2] && player.purchasedUpgrades.indexOf(upgrade.id) < 0){
       player.availableUpgrades.push(upgrade);
     }
   });
