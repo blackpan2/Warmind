@@ -450,7 +450,6 @@ function gameFunction() {
         }
 
         if(player && player.dead == false && player.health <= 0) {
-            console.log(player);
             player.dead = true;
             window.location.replace('postgame.html?u=' + player.name);
         }
