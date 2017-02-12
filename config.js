@@ -98,7 +98,7 @@ module.exports = {
         {
           id: 2,
           desc: '+3 Base Damage',
-          cost: [10, 5, 0],
+          cost: [7, 3, 0],
           effects: {
             attack: 3
           }
@@ -106,7 +106,7 @@ module.exports = {
         {
           id: 2,
           desc: '+2 Armor',
-          cost: [10, 5, 0],
+          cost: [7, 3, 0],
           effects: {
             defense: 2
           }
@@ -115,7 +115,7 @@ module.exports = {
         {
           id: 3,
           desc: '+3 Armor',
-          cost: [13, 6, 1],
+          cost: [10, 5, 1],
           effects: {
             defense: 3
           }
@@ -123,7 +123,7 @@ module.exports = {
         {
           id: 3,
           desc: '+10 Max Health',
-          cost: [13, 6, 1],
+          cost: [10, 5, 1],
           effects: {
             health: 10,
             maxHealth: 10
@@ -133,7 +133,7 @@ module.exports = {
         {
           id: 4,
           desc: '+5 Base Damage',
-          cost: [20, 10, 3],
+          cost: [12, 6, 2],
           effects: {
             attack: 5
           }
@@ -141,7 +141,7 @@ module.exports = {
         {
           id: 4,
           desc: '+10 Max Health',
-          cost: [20, 10, 3],
+          cost: [12, 6, 2],
           effects: {
             health: 10,
             maxHealth: 10
@@ -151,7 +151,7 @@ module.exports = {
         {
           id: 5,
           desc: '+5 Armor',
-          cost: [30, 18, 10],
+          cost: [13, 8, 2],
           effects: {
             defense: 5
           }
@@ -159,7 +159,7 @@ module.exports = {
         {
           id: 5,
           desc: '+6 Base Damage',
-          cost: [30, 18, 10],
+          cost: [13, 8, 2],
           effects: {
             attack: 6
           }
@@ -168,7 +168,7 @@ module.exports = {
         {
           id: 6,
           desc: '+15 Max Health',
-          cost: [40, 25, 15],
+          cost: [0, 0, 5],
           effects: {
             health: 15,
             maxHealth: 15
@@ -177,7 +177,7 @@ module.exports = {
         {
           id: 6,
           desc: '+6 Armor',
-          cost: [40, 25, 15],
+          cost: [0, 0, 5],
           effects: {
             defense: 6
           }
@@ -186,7 +186,7 @@ module.exports = {
         {
           id: 7,
           desc: '+8 Base Damage',
-          cost: [0, 50, 25],
+          cost: [0, 10, 5],
           effects: {
             attack: 8
           }
@@ -194,7 +194,7 @@ module.exports = {
         {
           id: 7,
           desc: '+15 Max Health',
-          cost: [0, 50, 25],
+          cost: [0, 10, 5],
           effects: {
             health: 15,
             maxHealth: 15
@@ -204,7 +204,7 @@ module.exports = {
         {
           id: 8,
           desc: '+8 Armor',
-          cost: [0, 50, 30],
+          cost: [10, 10, 7],
           effects: {
             defense: 8
           }
@@ -212,7 +212,7 @@ module.exports = {
         {
           id: 8,
           desc: '+20 Max Health',
-          cost: [0, 50, 30],
+          cost: [10, 10, 7],
           effects: {
             health: 20,
             maxHealth: 20
@@ -222,7 +222,7 @@ module.exports = {
         {
           id: 9,
           desc: '+10 Base Damage',
-          cost: [75, 60, 50],
+          cost: [15, 10, 10],
           effects: {
             attack: 10
           }
@@ -230,7 +230,7 @@ module.exports = {
         {
           id: 9,
           desc: '+10 Armor',
-          cost: [75, 60, 50],
+          cost: [15, 10, 10],
           effects: {
             defense: 10
           }
