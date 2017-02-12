@@ -207,7 +207,7 @@ CellController.prototype.applyPlayerOps = function (playerIds, players, coins) {
     if (player.quantumPotential) {
       moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED * 2
     } else {
-      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);      
+      moveSpeed = config.PLAYER_DEFAULT_MOVE_SPEED - (0.5 * player.purchasedUpgrades.length);
     }
 
     if (playerOp) {
@@ -410,18 +410,34 @@ CellController.prototype.resolvePlayerCollision = function (player, otherPlayer)
   var result = this.testCircleCollision(player, otherPlayer);
 
   if (result.collided) {
-    // player.health -= 10;
-    // otherPlayer.health -= 10;
+    //console.log("\nPlayer:");
+    //console.log(player);
+    //console.log("\notherPlayer:")
+    //console.log(otherPlayer);
+    player.health -= Math.min(5, otherPlayer.attack - player.defense);
+    otherPlayer.health -= Math.min(5, player.attack - otherPlayer.defense);
     var olv = result.overlapV;
 
     var totalMass = player.mass + otherPlayer.mass;
     var playerBuff = player.mass / totalMass;
     var otherPlayerBuff = otherPlayer.mass / totalMass;
 
-    player.x -= olv.x * otherPlayerBuff;
-    player.y -= olv.y * otherPlayerBuff;
-    otherPlayer.x += olv.x * playerBuff;
-    otherPlayer.y += olv.y * playerBuff;
+    if (player.x < otherPlayer.x) {
+      player.x -= 100 * otherPlayerBuff;
+      otherPlayer.x += 100 * playerBuff;
+    }
+    else {
+      player.x += 100 * otherPlayerBuff;
+      otherPlayer.x -= 100 * otherPlayerBuff;
+    }
+    if (player.y < otherPlayer.y) {
+      player.y -= 100 * otherPlayerBuff;
+      otherPlayer.y += 100 * playerBuff;
+    }
+    else {
+      player.y += 100 * otherPlayerBuff;
+      otherPlayer.y -= 100 * otherPlayerBuff;
+    }
 
     /*
       Whenever we have one state affecting the (x, y) coordinates of
